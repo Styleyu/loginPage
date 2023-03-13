@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["*"],
+      "_back/*": ["services/back/*"],
+      "_login/*": ["services/login/*"]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+  },
+  "vueCompilerOptions": {
+    "target": 2.7,
+    "extensions": [
+      ".vue"
+    ]
+  }
+}
