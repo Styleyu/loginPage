@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+/* router */
+import router from './router'
 /* state */
 import store from './state'
 /* UI */
@@ -17,5 +18,10 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  store
+  store,
+  router,
+  beforeCreate(){
+    // 全局事件总线
+    Vue.prototype.$bus = this
+  }
 }).$mount('#app')

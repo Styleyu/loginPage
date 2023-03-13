@@ -9,13 +9,13 @@ export const api = axios.create({
 
 /**
  * 响应结构:
- * code 0成功
+ * code 200成功
  * msg
  * data
  */
 api.interceptors.response.use(res => {
   const { data, code, msg } = res.data
-  if (code === 0) {
+  if (code == 200) {
     return data
   } else {
     throw msg
@@ -23,4 +23,3 @@ api.interceptors.response.use(res => {
 }, err => {
   throw err
 })
-

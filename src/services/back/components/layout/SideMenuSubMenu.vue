@@ -1,13 +1,18 @@
 <template>
-  <el-submenu :index="index">
-    <template slot="title">{{ menuItem.name }}</template>
+  <el-submenu :index="menuItem.path || ''">
+    <template slot="title">
+      <div style="display: flex; justify-content: space-between;">
+        <font-awesome-icon v-if="menuItem.icon" :name="menuItem.icon" />
+        <span>{{ menuItem.name }}</span>
+      </div>
+    </template>
     <!-- children -->
-    <template v-for="item in menuItem.children">
+    <template v-for="item, index in menuItem.children">
       <template v-if="item.children">
-        <SideMenuSubMenu :key="item.index" :index="item.index" :menu-item="item" />
+        <SideMenuSubMenu :key="index" :index="item.path" :menu-item="item" />
       </template>
       <template v-else>
-        <SideMenuSingleItem :key="item.index" :index="item.index" :menu-item="item" />
+        <SideMenuSingleItem :key="index" :index="item.path" :menu-item="item" />
       </template>
     </template>
   </el-submenu>
