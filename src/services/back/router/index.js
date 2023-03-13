@@ -14,6 +14,7 @@ VueRouter.prototype.push = function (location) {
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
