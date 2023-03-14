@@ -45,6 +45,21 @@
 
 - .env.development.local 本地开发配置，不会同步到git，如**配置开发服务器**等等
 
+参考
+```txt
+# 开发环境
+NODE_ENV=development
+
+# 前端开发服务器
+VUE_APP_DEVSERVER_PORT=8080
+VUE_APP_BASE_URL=/
+# 继承自VUE_APP_BASE_URL
+VUE_APP_BACK_LOCATION=back
+VUE_APP_LOGIN_LOCATION=login
+
+# 后端API地址
+VUE_APP_AXIOS_BASE_URL=http://localhost:9000/api
+```
 
 ## UI组件相关api
 
