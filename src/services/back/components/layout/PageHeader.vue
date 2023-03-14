@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-breadcrumb separator="/" style="user-select: none;">
-      <el-breadcrumb-item v-for="item, index in currentLocations" :key="index">
+      <el-breadcrumb-item v-for="item, index in currentMenuNames" :key="index">
         {{ item }}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     ...mapState('user', ['username']),
-    ...mapState('nav', ['currentLocations'])
+    ...mapState('nav', ['currentMenuNames'])
   },
   methods: {
     ...mapActions('user', ['logOut']),

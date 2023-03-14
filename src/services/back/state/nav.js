@@ -1,38 +1,56 @@
-  import menus from "_back/config/menus"
+import routesConfig from "_back/config/routes"
 
 const nav = {
   namespaced: true,
   state: () => ({
     /**
+     * 
+     * pathMenuNameMap
      * key: path
-     * value: [name1, name2]
+     * value: [menuName1, menuName2]
+     * 
+     * menuList: 
+     * [
+     *  {path:'/a/b/c', menuName: '', menuIcon: '', children: []}
+     * ]
+     * 
      */
     pathMenuNameMap: null,
-    currentLocations: []
+    currentMenuNames: [],
+    menuList: []
   }),
   actions: {
     init({ state }) {
-      const map = new Map()
-
-      // 依次将路径添加到map
-      const append = (item, parentList) => {
-        let path, menuNameList = parentList
-        if (item.path) {
-          path = item.path
+      // 从配置文件读取menuList
+      const filterMenuLst = (config) => {
+        const pathMenuNameMap= new Map()
+        const recur = (item, parentPath) => {
+          let copyItem = {
+            path: parentPath + '/' + item.path,
+            menuName: item.menuName,
+            menuIcon: item.menuIcon
+          }
+          pathMenuNameMap.set(copyItem.path, copyItem.menuName)
+          if (item.children) {
+            let cLst = []
+            for (let c of item.children) {
+              cLst.push(recur(c, copyItem.path))
+            }
+            copyItem.children = cLst
+          }
+          return copyItem
         }
-        menuNameList = [...parentList, item.name]
-        if (path)
-          map.set(path, menuNameList)
-        if (item.children) {
-          item.children.forEach(c => append(c, menuNameList))
-        }
+        state.pathMenuNameMap = pathMenuNameMap
+        return Array.prototype.map.call(config, i =>
+          recur(i, process.env.VUE_APP_BASE_URL + process.env.VUE_APP_BACK_LOCATION)
+        )
       }
-      menus.forEach(i => append(i, ['首页']))
-      state.pathMenuNameMap = map
+      state.menuList = filterMenuLst(routesConfig)
+      console.log(state.menuList);
     },
-    setCurrentLocation({ state }, path) {
-      state.currentLocations = state.pathMenuNameMap.get(path)
-    }
+    setCurrentMenuNames({ state }, path) {
+      state.currentMenuNames = state.pathMenuNameMap.get(path)
+    },
   }
 }
 

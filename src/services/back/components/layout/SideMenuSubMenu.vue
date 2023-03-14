@@ -2,8 +2,8 @@
   <el-submenu :index="menuItem.path || ''">
     <template slot="title">
       <div style="display: flex; justify-content: space-between;">
-        <font-awesome-icon v-if="menuItem.icon" :name="menuItem.icon" />
-        <span>{{ menuItem.name }}</span>
+        <font-awesome-icon v-if="menuItem.menuIcon" :name="menuItem.menuIcon" />
+        <span>{{ menuItem.menuName }}</span>
       </div>
     </template>
     <!-- children -->

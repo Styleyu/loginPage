@@ -14,7 +14,8 @@
 <script>
 import SideMenuSubMenu from './SideMenuSubMenu.vue'
 import SideMenuSingleItem from './SideMenuSingleItem.vue'
-import menus from '_back/config/menus'
+import routesConfig from '_back/config/routes'
+import { mapState } from 'vuex'
 
 
 /**
@@ -25,12 +26,12 @@ export default {
   name: 'SideMenu',
   data() {
     return {
-      menuList: [],
       defaultOpeneds: []
     }
   },
   props: ['open'],
   computed: {
+    ...mapState('nav', ['menuList']),
     defaultActive() {
       return this.$route.fullPath
     },
@@ -40,16 +41,14 @@ export default {
     /**
      * 根据当前权限初始化菜单
      */
-    initMenuList() {
+    init() {
       let openeds = []
-      menus.forEach(i => openeds.push(i.path))
-
-      this.menuList = menus
+      this.menuList.forEach(root => openeds.push(root.path))
       this.defaultOpeneds = openeds
     }
   },
   created() {
-    this.initMenuList()
+    this.init()
   },
   mounted() {
 

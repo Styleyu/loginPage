@@ -1,38 +1,17 @@
 <template>
-  <div>
-    <el-container style="height: 100vh; display: flex">
-      <el-aside style="width: 16rem">
-        <SideMenu />
-      </el-aside>
-      <div style="height: 100vh; flex: 1;">
-        <PageHeader style="z-index: 2;" />
-        <el-main>
-          <transition name="app-router-view-transition">
-            <router-view />
-          </transition>
-        </el-main>
-      </div>
-    </el-container>
-  </div>
+  <router-view />
 </template>
 
 <script>
-import SideMenu from './components/layout/SideMenu.vue'
-import PageHeader from './components/layout/PageHeader.vue'
-
 export default {
   name: "ROOT",
-  components: { SideMenu, PageHeader },
-  methods: {
-
-  },
   beforeCreate() {
     /* 初始化导航 */
     const initNav = async () => {
       await this.$store.dispatch('nav/init')
-      this.$store.dispatch('nav/setCurrentLocation', this.$route.fullPath)
+      this.$store.dispatch('nav/setCurrentMenuNames', this.$route.fullPath)
       this.$router.beforeEach((to, from, next) => {
-        this.$store.dispatch('nav/setCurrentLocation', to.fullPath)
+        this.$store.dispatch('nav/setCurrentMenuNames', to.fullPath)
         next()
       })
     }
@@ -65,17 +44,5 @@ export default {
 
 .remove {
   display: none;
-}
-
-.app-router-view-transition {
-  &-enter-active {
-    transition: all .3s;
-  }
-
-  &-enter {
-    transform: translateY(-30%);
-    opacity: .3;
-  }
-
 }
 </style>
