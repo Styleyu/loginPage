@@ -4,7 +4,7 @@
  * menuName: 显示在菜单的文字
  * menuIcon: 显示在菜单的图标名, font awesome的icon属性
  * component: 异步调用函数，返回异步组件
- * 
+ *
  * NOTE: 使用path而不是name进行路由导航
  */
 const config = [
@@ -45,6 +45,7 @@ const config = [
   {
     path: 'plan',
     menuName: '培养方案',
+    component: () => import('_back/views/plan/PlanView.vue'),
     children: [
       {
         path: 'create',
@@ -53,6 +54,7 @@ const config = [
       {
         path: 'read',
         menuName: '查看培养方案',
+        component: () => import('_back/views/plan/PlanRead.vue')
       }
     ]
   }
