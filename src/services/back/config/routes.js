@@ -37,8 +37,12 @@ const config = [
         menuName: '提交新项目',
       },
       {
-        path: 'has',
-        menuName: '查看已有',
+        path: 'examine',
+        menuName: '项目审批',
+      },
+      {
+        path: 'progress',
+        menuName: '查看进度',
       }
     ]
   },
