@@ -1,21 +1,19 @@
 <template>
-    <div>
-      <p>项目审批界面</p>
-    </div>
+  <div>
+        <p>项目审批界面</p>
+      </div>
   </template>
-  <script>
-  export default{
-    mounted(){
+    <script>
+    export default{
+      mounted(){
+        
+      },
+  
       
     }
-  }
-  </script>
-<<<<<<< HEAD
-  <!-- TODO -->
+    </script>
+    <!-- TODO -->
   
- 
-=======
+    <style lang="scss">
   
->>>>>>> bccb8c73da3285e15d8cb492295071818a8b014b
-  <style lang="scss">
-  </style>
+    </style>
