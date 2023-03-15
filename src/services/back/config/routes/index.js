@@ -11,11 +11,13 @@
 
 import user from "./user"
 import plan from './plan'
+import project from "./project"
 
 const config = [
   user,
   // @todo
-  plan
+  plan,
+  project,
 ]
 
 
