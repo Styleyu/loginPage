@@ -1,8 +1,8 @@
 <template>
-  <div id="main-container">
+  <div class="main-container">
     <el-container>
       <!-- 页头 -->
-      <el-header :gutter=20 id="header">
+      <el-header :gutter=20 class="header">
         <el-row>
           <el-col :span="6">
             <el-button class="el-button--mini el-button--info" plain>
@@ -27,7 +27,7 @@
           <!--          </el-col>-->
         </el-row>
       </el-header>
-      <el-container id="detail-container">
+      <el-container class="detail-container">
         <!--        主题内容-->
         <el-main class="training-main" v-html="training.detail">
         </el-main>
@@ -79,21 +79,21 @@
           </el-card>
           <hr class="aside-split">
           <!--          培养方案对应的指标-->
-          <el-card shadow="hover">
-            <div class="aside-title">指标概览</div>
-            <el-timeline>
-              <el-timeline-item
-                  v-for="(aim, index) in training.aims"
-                  :key="index"
-                  icon="el-icon-success"
-                  color="green"
-                  size="small"
-                  :timestamp="aim.explain">
-                {{aim.content}}
-              </el-timeline-item>
-            </el-timeline>
-          </el-card>
-          <hr class="aside-split">
+<!--          <el-card shadow="hover">-->
+<!--            <div class="aside-title">指标概览</div>-->
+<!--            <el-timeline>-->
+<!--              <el-timeline-item-->
+<!--                  v-for="(aim, index) in training.aims"-->
+<!--                  :key="index"-->
+<!--                  icon="el-icon-success"-->
+<!--                  color="green"-->
+<!--                  size="small"-->
+<!--                  :timestamp="aim.explain">-->
+<!--                {{aim.content}}-->
+<!--              </el-timeline-item>-->
+<!--            </el-timeline>-->
+<!--          </el-card>-->
+<!--          <hr class="aside-split">-->
           <!--培养方案对应的指标-->
           <el-card shadow="hover">
             <div class="aside-title">相关方案</div>
@@ -159,17 +159,34 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 /* 全局背景板 */
-#detail-container,#main-container {
+.main-container {
   background-color: transparent;
   padding: 0;
   width: 100%;
-  height: 100vh;
 }
+
+.detail-container {
+  .training {
+
+    &-main {
+
+
+    }
+
+    &-aside {
+      ::-webkit-scrollbar {
+        width: 0 !important;
+      }
+    }
+  }
+}
+
 /*头部*/
-#header {
-  background-color: rgba(5, 96, 114, 0.064);
+.header {
+  background-color: transparent;
+  font-size: large;
   display: inline-block;
   vertical-align: middle;
   text-align: left;
@@ -224,12 +241,7 @@ export default {
   color: rgba(12, 132, 255, 0.5);
 }
 /*隐藏滚动条*/
-::-webkit-scrollbar {
-  width: 0 !important;
-}
-::-webkit-scrollbar {
-  width: 0 !important;height: 0;
-}
+
 .el-card__body, .el-main{
   padding: 0;
 }

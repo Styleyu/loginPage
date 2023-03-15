@@ -7,10 +7,12 @@
       </el-aside>
       <div style="height: 100vh; flex: 1;">
         <PageHeader style="z-index: 2;" />
-        <el-main class="app-main">
-          <transition name="app-router-view-transition">
-            <router-view />
-          </transition>
+        <el-main>
+          <div class="router-view-container">
+            <transition name="app-router-view-transition">
+              <router-view />
+            </transition>
+          </div>
         </el-main>
       </div>
     </el-container>
@@ -37,7 +39,11 @@ export default {
     transform: translateY(-30%);
     opacity: .3;
   }
-
+}
+.router-view-container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
 }
 
 .app-main {

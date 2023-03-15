@@ -41,6 +41,13 @@ export default {
   //   width: 5px;
   // }
 }
+::-webkit-scrollbar{
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(117, 116, 116, 0.6);
+}
 
 .hide {
   opacity: 0;
