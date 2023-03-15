@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <div class="user" @click.stop="onClickIcon">
       <div class="user-name">
-        {{ username }}
+        {{ name }}
       </div>
       <font-awesome-icon class="user-icon" icon="fa-solid fa-circle-user" />
     </div>
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { resolveBackRoutePath } from '@/api/jump';
 import { mapActions, mapState } from 'vuex';
 
 
@@ -39,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', ['username']),
+    ...mapState('user', ['name']),
     ...mapState('nav', ['currentMenuNames'])
   },
   methods: {
