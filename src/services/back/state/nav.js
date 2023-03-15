@@ -47,7 +47,7 @@ const nav = {
         )
       }
       state.menuList = filterMenuLst(routesConfig)
-      console.log(state.pathMenuNameMap);
+      // console.log(state.pathMenuNameMap)
     },
     setCurrentMenuNames({ state }, path) {
       state.currentMenuNames = state.pathMenuNameMap.get(path)

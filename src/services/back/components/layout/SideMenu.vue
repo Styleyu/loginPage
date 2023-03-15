@@ -14,7 +14,6 @@
 <script>
 import SideMenuSubMenu from './SideMenuSubMenu.vue'
 import SideMenuSingleItem from './SideMenuSingleItem.vue'
-import routesConfig from '_back/config/routes'
 import { mapState } from 'vuex'
 
 
