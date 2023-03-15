@@ -164,7 +164,7 @@ export default {
 #detail-container,#main-container {
   background-color: transparent;
   padding: 0;
-  width: 84vw;
+  width: 100%;
   height: 100vh;
 }
 /*头部*/
