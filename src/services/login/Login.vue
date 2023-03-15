@@ -203,12 +203,12 @@ export default{
 }
 .login-register-from input{
   width: 50%;
-  height: 1.7rem;
+  height: 2.5rem;
   border: none;
   outline: none;
   border-radius: 10px;
   padding-left: 2em;
-  background-color: rgba(240, 240, 240, 0.70);
+  background-color: rgba(133, 129, 129, 0.5);
 }
 .commit-button{
   width: 20%;
