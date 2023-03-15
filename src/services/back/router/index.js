@@ -55,7 +55,7 @@ const routes = filterRoutes(routesConfig)
 
 
 Vue.use(VueRouter)
-console.log(routes);
+// console.log(routes);
 const router = new VueRouter({
   mode: 'history',
   routes
