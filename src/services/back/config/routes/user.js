@@ -1,6 +1,6 @@
 export default {
   path: 'user',
-  component: () => import('_back/views/user/UserView.vue'),
+  component: () => import('@/services/back/views/user/UserRootView.vue'),
   menuName: '用户信息',
   menuIcon: '',
   children: [
