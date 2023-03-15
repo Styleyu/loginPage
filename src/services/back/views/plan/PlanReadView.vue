@@ -155,9 +155,7 @@ export default {
       return 1
     }
   },
-  created: {
-
-  }
+  created(){}
 }
 </script>
 
