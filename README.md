@@ -12,14 +12,22 @@
 ## 路径说明
 
 - api: 相关全局api，请提前查看阅读src/api
-  jump.js 路由跳转和重定向
-  cookie.js 存储获取cookie
-  localstorage 存储获取localstorage
-  axios.js 异步请求
+  
+  - jump.js 路由跳转和重定向
+  
+  - cookie.js 存储获取cookie
+  
+  - localstorage 存储获取localstorage
+  
+  - axios.js 异步请求
 
 - services/back/api: 后台页面使用的api
 
 - services/back/config: 后台页面配置文件，如ui配置、菜单配置、routes配置
+
+- services/back/mixins: 全局混入
+  
+  - router相关
 
 - services/back/views: 路由页面
 
