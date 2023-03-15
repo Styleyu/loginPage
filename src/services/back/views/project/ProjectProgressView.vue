@@ -4,46 +4,99 @@
   <el-step title="步骤2" description="这是一段很长很长很长的描述性文字"></el-step>
   <el-step title="步骤3" description="这是一段很长很长很长的描述性文字"></el-step>
   <el-step title="步骤4" description="这是一段很长很长很长的描述性文字"></el-step>
-</el-steps> -->
-
-
+  </el-steps> -->
   <div>
-    <el-steps :active="activeIndex" finish-status="success" simple style="margin-top: 20px">
-    <el-step title="步骤 1" @click.native="setActiveIndex(1)"></el-step>
-    <el-step title="步骤 2" @click.native="setActiveIndex(2)"></el-step>
-    <el-step title="步骤 3" @click.native="setActiveIndex(3)"></el-step>
-    <el-step title="步骤 4" @click.native="setActiveIndex(4)"></el-step>
-  </el-steps>
-    <el-divider></el-divider>
-    <div>flag 值为：{{ flag }}</div>
+    <el-steps :active="activeIndex-1" finish-status="success" simple style="margin-top: 50px">
+      <el-step title="步骤 1" @click.native="setChosenIndex(1)">
+      </el-step>
+      <el-step title="步骤 2" @click.native="setChosenIndex(2)">
+      </el-step>
+      <el-step title="步骤 3" @click.native="setChosenIndex(3)">
+      </el-step>
+      <el-step title="步骤 4" @click.native="setChosenIndex(4)">
+      </el-step>
+    </el-steps>
+    <el-divider>
+    </el-divider>
+    <div>chosenIndex 值为：{{ chosenIndex }}</div>
+    <!-- <div>activeIndex 值为：{{ activeIndex }}</div> -->
+    <!-- TODO -->
+    <div>
+      <el-descriptions class="margin-top"  :column="3" :size="size" border>
+    <el-descriptions-item>
+      <template slot="label">
+        <i class="el-icon-user"></i>
+        用户名
+      </template>
+      kooriookami
+    </el-descriptions-item>
+
+    <div v-show="chosenIndex===2">
+      <el-descriptions-item>
+      <template slot="label">
+        <i class="el-icon-mobile-phone"></i>
+        手机号
+      </template>
+      18100000000
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+        <i class="el-icon-location-outline"></i>
+        居住地
+      </template>
+      苏州市
+    </el-descriptions-item>
+    </div>
+    <el-descriptions-item>
+      <template slot="label">
+        <i class="el-icon-tickets"></i>
+        备注
+      </template>
+      <el-tag size="small">学校</el-tag>
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+        <i class="el-icon-office-building"></i>
+        联系地址
+      </template>
+      江苏省苏州市吴中区吴中大道 1188 号
+    </el-descriptions-item>
+  </el-descriptions>
+    </div>
+
   </div>
 </template>
-  <script>
-  export default{
+<script>export
+default {
     data() {
-    return {
-      activeIndex: 1, // 默认为第1步
-      flag: null // 标记，用户选中的步骤序号
-    };
-  },
-    mounted(){
+      return {
+        activeIndex:3,// 默认为第3步s
+        chosenIndex: 0 // 标记，用户选中的步骤序号
+      };
+    },
+    mounted() {
+      this.init()
 
     },
     methods: {
-      setActiveIndex(index) {
-      this.activeIndex = index;
-      this.flag = index;
+      setChosenIndex(index) {
+        // this.activeIndex = index;
+        if(index<=this.activeIndex){
+          this.chosenIndex = index;
+
+        }
+        
+      },
+      init() {
+        this.chosenIndex = this.activeIndex;
+      },
+
     }
-
-  },
-
-
-
-    
   }
   </script>
-  <!-- TODO -->
+<!-- TODO -->
 
   <style  lang="scss">
+
 
   </style>
