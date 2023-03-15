@@ -51,7 +51,7 @@ export default {
         this.isInfoHidden = true
     },
     goToDetail() {
-      this.$router.push(resolveBackRoutePath('/user/detail'))
+      this.routerPush('/user/detail')
     }
   },
   created() {
