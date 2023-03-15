@@ -1,6 +1,6 @@
 <template>
     <div>
-      <p>提交新项目界面</p>
+      <p>项目提交界面</p>
     </div>
   </template>
   <script>
