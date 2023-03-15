@@ -11,10 +11,15 @@ import FontAwesomeIcon from './config/fontUI'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+/* mixins */
+import mixins from './mixins'
+
 Vue.use(ElementUI)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
+
+mixins.forEach(m => Vue.mixin(m))
 
 new Vue({
   render: h => h(App),

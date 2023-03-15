@@ -7,60 +7,61 @@
  * 
  * NOTE: 使用path而不是name进行路由导航
  */
-const config = [
-  {
-    path: 'user',
-    component: () => import('_back/views/user/UserView.vue'),
-    menuName: '用户信息',
-    menuIcon: '',
-    children: [
-      {
-        path: 'detail',
-        component: () => import('_back/views/user/UserDetailView.vue'),
-        menuName: '用户详情',
-        menuIcon: '',
-      },
-      {
-        path: 'test',
-        component: () => import('_back/views/user/UserTestView.vue'),
-        menuName: '用户测试',
-        menuIcon: '',
-      }
-    ]
-  },
-  {
-    path: 'project',
-    menuName: '我的项目',
-    children: [
-      {
-        path: 'commit',
-        menuName: '提交新项目',
-      },
-      {
-        path: 'examine',
-        menuName: '项目审批',
-      },
-      {
-        path: 'progress',
-        menuName: '查看进度',
-      }
-    ]
-  },
-  {
-    path: 'plan',
-    menuName: '培养方案',
-    children: [
-      {
-        path: 'create',
-        menuName: '制定培养方案',
-      },
-      {
-        path: 'read',
-        menuName: '查看培养方案',
-      }
-    ]
-  }
-]
+// const config = [
+//   {
+//     path: 'user',
+//     component: () => import('_back/views/user/UserView.vue'),
+//     menuName: '用户信息',
+//     menuIcon: '',
+//     children: [
+//       {
+//         path: 'detail',
+//         component: () => import('_back/views/user/UserDetailView.vue'),
+//         menuName: '用户详情',
+//         menuIcon: '',
+//       },
+//       {
+//         path: 'test',
+//         component: () => import('_back/views/user/UserTestView.vue'),
+//         menuName: '用户测试',
+//         menuIcon: '',
+//       }
+//     ]
+//   },
+//   {
+//     path: 'project',
+//     menuName: '我的项目',
+//     children: [
+//       {
+//         path: 'progress',
+//         menuName: '查看进度',
+//       },
+//       {
+//         path: 'commit',
+//         menuName: '提交新项目',
+//       },
+//       {
+//         path: 'examine',
+//         menuName: '项目审批',
+//       }
+      
+//     ]
+//   },
+//   {
+//     path: 'plan',
+//     menuName: '培养方案',
+//     children: [
+//       {
+//         path: 'create',
+//         menuName: '制定培养方案',
+//       },
+//       {
+//         path: 'read',
+//         menuName: '查看培养方案',
+//       }
+//     ]
+//   }
+// ]
 
 
-export default config
+// export default config

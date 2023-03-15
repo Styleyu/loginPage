@@ -1,20 +1,21 @@
 <template>
   <div>
-    <!-- <p>This is a login page</p>
-    <button @click="login">登录</button> -->
+    <Login />
   </div>
 </template>
 
 <script>
 import { api } from '@/api/axios'
+import Login from "_login/Login";
 
 // import { goToBackPage } from '@/api/go'
 
 export default {
   name: 'ROOT',
+  components: {Login},
   data() {
     return {
-      
+
     }
   },
   methods: {
@@ -26,7 +27,7 @@ export default {
       })
       // goToBackPage()
     }
-  }  
+  }
 }
 </script>
 

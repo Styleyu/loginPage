@@ -37,6 +37,13 @@ export default {
   color: rgb(62, 62, 62);
   font-family: sans-serif;
 }
+::-webkit-scrollbar{
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(117, 116, 116, 0.6);
+}
 
 .hide {
   opacity: 0;
