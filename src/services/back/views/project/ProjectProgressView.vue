@@ -1,15 +1,19 @@
 <template>
-    <div>
-      <p>项目进度界面</p>
+<div>
+      <p>项目界面</p>
     </div>
-  </template>
+</template>
   <script>
   export default{
     mounted(){
       
-    }
+    },
+
+    
   }
   </script>
-  
+  <!-- TODO -->
+
   <style lang="scss">
+
   </style>
