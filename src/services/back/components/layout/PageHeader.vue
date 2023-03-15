@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { resolveBackRoutePath } from '@/api/jump';
 import { mapActions, mapState } from 'vuex';
 
 
@@ -50,7 +51,7 @@ export default {
         this.isInfoHidden = true
     },
     goToDetail() {
-      this.$router.push('/user/detail')
+      this.$router.push(resolveBackRoutePath('/user/detail'))
     }
   },
   created() {
