@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import {goToBackPage} from "@/api/jump";
+
 export default{
   // eslint-disable-next-line vue/multi-word-component-names
   name:'Login',
@@ -72,34 +74,35 @@ export default{
       const self = this;
       if (self.form.userEmail !== "" && self.form.userPwd !== "") {
         //预留的登录接口
-        self.$axios({
-          method:'post',
-          url: 'http://127.0.0.1:10520/api/user/login',
-          data: {
-            email: self.form.userEmail,
-            password: self.form.userPwd,
-            coach: self.form.coach
-          }
-        })
-            .then( res => {
-              switch(res.data){
-                case 0:
-                  alert("登陆成功！");
-                  break;
-                case -1:
-                  this.emailError = true;
-                  break;
-                case 1:
-                  this.passwordError = true;
-                  break;
-                case 2:
-                  this.coachError=true;
-                  break;
-              }
-            })
-            .catch( err => {
-              console.log(err);
-            })
+        // self.$axios({
+        //   method:'post',
+        //   url: 'http://127.0.0.1:10520/api/user/login',
+        //   data: {
+        //     email: self.form.userEmail,
+        //     password: self.form.userPwd,
+        //     coach: self.form.coach
+        //   }
+        // })
+        //     .then( res => {
+        //       switch(res.data){
+        //         case 0:
+        //           alert("登陆成功！");
+        //           break;
+        //         case -1:
+        //           this.emailError = true;
+        //           break;
+        //         case 1:
+        //           this.passwordError = true;
+        //           break;
+        //         case 2:
+        //           this.coachError=true;
+        //           break;
+        //       }
+        //     })
+        //     .catch( err => {
+        //       console.log(err);
+        //     })
+        goToBackPage()
       } else{
         alert("填写不能为空！");
       }
@@ -153,7 +156,8 @@ export default{
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background-color: rgba(82, 80, 80, 0.35);
+  background-color: rgba(255, 255, 255, 0.8);
+  /*background-color: #fff;*/
   border-radius: 20px;
   box-shadow: 0 0 3px #f0f0f0,
   0 0 6px #f0f0f0;
