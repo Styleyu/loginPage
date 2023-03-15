@@ -5,13 +5,14 @@
       <el-header :gutter=20 id="header">
         <el-row>
           <el-col :span="6">
-            <el-link href="home" type="primary">
-              <el-icon class="el-icon-s-home"></el-icon>总览
-            </el-link>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <el-link href="" type="primary">
-              <el-icon class="el-icon-arrow-left"></el-icon>上一篇
-            </el-link>
+            <el-button class="el-button--mini el-button--info" plain>
+              <el-link href="home" type="info">
+                <el-icon class="el-icon-s-home"></el-icon>总览
+              </el-link>
+            </el-button>&nbsp;&nbsp;&nbsp;&nbsp;
+<!--            <el-link href="" type="primary">-->
+<!--              <el-icon class="el-icon-arrow-left"></el-icon>上一篇-->
+<!--            </el-link>-->
           </el-col>
           <el-col :span="8" v-text="training.title" class="training-title"></el-col>
           <!--          <el-col :span="8" class="training-bar">-->

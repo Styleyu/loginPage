@@ -1,7 +1,7 @@
 export default {
     path: 'plan',
     menuName: '培养方案',
-    component: () => import('_back/views/plan/PlanView.vue'),
+    component: () => import('_back/views/plan/PlanRootView.vue'),
     children: [
         {
             path: 'create',
@@ -10,7 +10,7 @@ export default {
         {
             path: 'read',
             menuName: '查看培养方案',
-            component: () => import('_back/views/plan/PlanRead.vue')
+            component: () => import('_back/views/plan/PlanReadView.vue')
         }
     ]
 }
