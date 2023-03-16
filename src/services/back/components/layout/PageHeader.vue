@@ -7,11 +7,11 @@
     </el-breadcrumb>
     <div class="user" @click.stop="onClickIcon">
       <div class="user-name">
-        {{ username }}
+        {{ name }}
       </div>
       <font-awesome-icon class="user-icon" icon="fa-solid fa-circle-user" />
     </div>
-    <div :class="['user-info', { 'hide': isInfoHidden }]" @click.stop="">
+    <div :class="['user-info', { 'disappear': isInfoHidden }]" @click.stop="">
       <ul>
         <li @click="goToDetail">
           <font-awesome-icon class="icon" icon="fa-solid fa-circle-info" />
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { resolveBackRoutePath } from '@/api/jump';
 import { mapActions, mapState } from 'vuex';
 
 
@@ -39,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', ['username']),
+    ...mapState('user', ['name']),
     ...mapState('nav', ['currentMenuNames'])
   },
   methods: {
