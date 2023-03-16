@@ -7,20 +7,21 @@
   </el-steps> -->
   <div>
     <el-steps :active="activeIndex-1" finish-status="success" simple style="margin-top: 50px">
-      <el-step title="步骤 1" @click.native="setChosenIndex(1)">
+      <el-step title="项目提交" @click.native="setChosenIndex(1)">
       </el-step>
-      <el-step title="步骤 2" @click.native="setChosenIndex(2)">
+      <el-step title="班级审核" @click.native="setChosenIndex(2)">
       </el-step>
-      <el-step title="步骤 3" @click.native="setChosenIndex(3)">
+      <el-step title="年级审核" @click.native="setChosenIndex(3)">
       </el-step>
-      <el-step title="步骤 4" @click.native="setChosenIndex(4)">
+      <el-step title="学院审核" @click.native="setChosenIndex(4)">
       </el-step>
     </el-steps>
     <el-divider>
     </el-divider>
     <div>chosenIndex 值为：{{ chosenIndex }}</div>
     <!-- <div>activeIndex 值为：{{ activeIndex }}</div> -->
-    <!-- TODO -->
+    <!-- TODO 点击以上节点可以查看相应节点的审核状态-->
+	  <!-- TODO 节点做成按钮状-->
     <div>
       <el-descriptions class="margin-top"  :column="3" :size="size" border>
     <el-descriptions-item>
