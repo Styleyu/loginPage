@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       reviewedProjects: 0,
-      // 默认为第3步s
       chosenIndex: 0 // 标记，用户选中的步骤序号
     };
   },
