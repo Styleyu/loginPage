@@ -36,6 +36,10 @@ export default {
   font-size: var(--app-basic-size);
   color: rgb(62, 62, 62);
   font-family: sans-serif;
+
+  // &::-webkit-scrollbar {
+  //   width: 5px;
+  // }
 }
 ::-webkit-scrollbar{
   width: 5px;
@@ -49,7 +53,7 @@ export default {
   opacity: 0;
 }
 
-.remove {
+.disappear {
   display: none;
 }
 </style>
