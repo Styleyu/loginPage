@@ -45,4 +45,10 @@ export default {
   width: 100%;
   padding: 10px;
 }
+
+.app-main {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--app-basic-size)!important;
+}
 </style>

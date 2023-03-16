@@ -1,103 +1,109 @@
 <template>
-  <!-- <el-steps :active="2" align-center>
-  <el-step title="步骤1" description="这是一段很长很长很长的描述性文字"></el-step>
-  <el-step title="步骤2" description="这是一段很长很长很长的描述性文字"></el-step>
-  <el-step title="步骤3" description="这是一段很长很长很长的描述性文字"></el-step>
-  <el-step title="步骤4" description="这是一段很长很长很长的描述性文字"></el-step>
-  </el-steps> -->
   <div>
-    <el-steps :active="activeIndex-1" finish-status="success" simple style="margin-top: 50px">
-      <el-step title="项目提交" @click.native="setChosenIndex(1)">
-      </el-step>
-      <el-step title="班级审核" @click.native="setChosenIndex(2)">
-      </el-step>
-      <el-step title="年级审核" @click.native="setChosenIndex(3)">
-      </el-step>
-      <el-step title="学院审核" @click.native="setChosenIndex(4)">
-      </el-step>
-    </el-steps>
-    <el-divider>
-    </el-divider>
-    <div>chosenIndex 值为：{{ chosenIndex }}</div>
-    <!-- <div>activeIndex 值为：{{ activeIndex }}</div> -->
-    <!-- TODO 点击以上节点可以查看相应节点的审核状态-->
-	  <!-- TODO 节点做成按钮状-->
-    <div>
-      <el-descriptions class="margin-top"  :column="3" :size="size" border>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-user"></i>
-        用户名
-      </template>
-      kooriookami
-    </el-descriptions-item>
+    <p>flag的值为:{{ this.flag }}</p>
+    <el-table id="progressTable" :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+      <el-table-column prop="audit_id" label="项目编号" width="180">
+      </el-table-column>
+      <el-table-column prop="project_name" label="项目名称" width="180">
+      </el-table-column>
+      <el-table-column prop="group" label="所属团队">
+      </el-table-column>
+      <el-table-column prop="time" label="提交时间">
+      </el-table-column>
+      <el-table-column prop="status" label="状态">
+<!--        <v-slot slot-scope="scope">-->
+<!--          <span v-if="scope.row.status === 1">已提交{{scope.row.status}}</span>-->
+<!--          <span v-else-if="scope.row.status === 2">班级审核通过{{scope.row.status}}</span>-->
+<!--          <span v-else-if="scope.row.status === 3">年级审核通过{{scope.row.status}}</span>-->
+<!--          <span v-else-if="scope.row.status === 4">院级审核通过{{scope.row.status}}</span>-->
+<!--          <span v-else>已驳回</span>-->
+<!--        </v-slot>-->
+      </el-table-column>
 
-    <div v-show="chosenIndex===2">
-      <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-mobile-phone"></i>
-        手机号
-      </template>
-      18100000000
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-location-outline"></i>
-        居住地
-      </template>
-      苏州市
-    </el-descriptions-item>
-    </div>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-tickets"></i>
-        备注
-      </template>
-      <el-tag size="small">学校</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template slot="label">
-        <i class="el-icon-office-building"></i>
-        联系地址
-      </template>
-      江苏省苏州市吴中区吴中大道 1188 号
-    </el-descriptions-item>
-  </el-descriptions>
-    </div>
-
+      <el-table-column label="详情">
+        <v-slot slot-scope="scope">
+          <el-button class="fancy-btn" type="info" round @click="getDetails(scope.row.audit_id)">
+            详情
+          </el-button>
+        </v-slot>
+      </el-table-column>
+    </el-table>
   </div>
+
+
 </template>
-<script>export
-default {
-    data() {
-      return {
-        activeIndex:3,// 默认为第3步s
-        chosenIndex: 0 // 标记，用户选中的步骤序号
-      };
-    },
-    mounted() {
-      this.init()
+<script>
+export default {
+  methods: {
+    tableRowClassName({row, rowIndex}) {
+      return rowIndex%2 === 1 ? 'warning-row' : 'success-row';
+      // TODO更改状态方法
 
     },
-    methods: {
-      setChosenIndex(index) {
-        // this.activeIndex = index;
-        if(index<=this.activeIndex){
-          this.chosenIndex = index;
-
-        }
-        
-      },
-      init() {
-        this.chosenIndex = this.activeIndex;
-      },
+    getDetails(audit_id) {
+      this.flag = audit_id
+    },
+    init() {
+      this.tableRowClassName(1, 3);
 
     }
-  }
-  </script>
+  },
+  data() {
+    return {
+      flag: 0,
+      tableData: [{
+        audit_id: '512882269587',
+        project_name: '218317134553',
+        group: '211545360049',
+        time: '2023-03-01 09:28:13',
+        status: '0',
+        details: '',
+      }, {
+        audit_id: '661806075388',
+        project_name: '625877504180',
+        group: '628303567548',
+        time: '2023-03-09 07:07:16',
+        status: '-1',
+        details: '',
+      }, {
+        audit_id: '775191006160',
+        project_name: '317972308888',
+        group: '249101230772',
+        time: '2023-03-12 15:42:54',
+        status: '2',
+        details: '',
+      }, {
+        audit_id: '330576288926',
+        project_name: '883258724103',
+        group: '872687297290',
+        time: '2023-03-08 23:27:48',
+        status: '3',
+        details: '',
+      }, {
+        audit_id: '878323167051',
+        project_name: '898816320458',
+        group: '174131202125',
+        time: '2023-03-15 16:24:38',
+        status: '4',
+        details: '',
+      },]
+    }
+  },
+  mounted() {
+    this.init()
+
+  },
+}
+// TODO更改数据
+</script>
 <!-- TODO -->
 
-  <style  lang="scss">
+<style lang="scss">
+.el-table .warning-row {
+  background: #FFCCCC;
+}
 
-
-  </style>
+.el-table .success-row {
+  background: #f0f9eb;
+}
+</style>
