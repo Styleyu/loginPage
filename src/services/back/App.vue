@@ -53,7 +53,7 @@ export default {
   opacity: 0;
 }
 
-.remove {
+.disappear {
   display: none;
 }
 </style>

@@ -11,7 +11,7 @@
       </div>
       <font-awesome-icon class="user-icon" icon="fa-solid fa-circle-user" />
     </div>
-    <div :class="['user-info', { 'hide': isInfoHidden }]" @click.stop="">
+    <div :class="['user-info', { 'disappear': isInfoHidden }]" @click.stop="">
       <ul>
         <li @click="goToDetail">
           <font-awesome-icon class="icon" icon="fa-solid fa-circle-info" />
