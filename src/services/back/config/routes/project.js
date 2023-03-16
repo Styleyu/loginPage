@@ -17,9 +17,21 @@ export default {
         menuIcon: '',
       },
       {
+        path: 'progress_details',
+        component: () => import('_back/views/project/ProjectProgressDetailsView.vue'),
+        menuName: '项目进度详情(方便查看)',
+        menuIcon: '',
+      },
+      {
         path: 'examine',
         component: () => import('_back/views/project/ProjectExamineView.vue'),
         menuName: '项目审批',
+        menuIcon: '',
+      },
+      {
+        path: 'examine_details',
+        component: () => import('_back/views/project/ProjectExamineDetailsView.vue'),
+        menuName: '项目审批详情(方便查看)',
         menuIcon: '',
       },
       
