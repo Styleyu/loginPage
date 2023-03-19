@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>flag的值为:{{ this.flag }}</p>
+<<<<<<< HEAD
     <el-table id="progressTable" style="width: 100%" :row-class-name="tableRowClassName">
       <el-table-column prop="audit_id" label="项目编号" width="180">
         <v-slot slot-scope="scope">
@@ -45,6 +46,28 @@
       </el-table-column>
 
       <el-table-column label="审核详情">
+=======
+    <el-table ref="progressTable" :data="tableData" style="width: 100%" v-loading="listLoading" border stripe highlight-current-row @current-change="handleCurrentChange">
+      <el-table-column prop="index" label="序号" type="index" width="100" show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column prop="audit_id" label="项目编号" width="180" show-overflow-tooltip>
+        <v-slot slot-scope="scope">{{scope.row.audit_id}}</v-slot>
+      </el-table-column>
+      <el-table-column prop="project_name" label="项目名称" width="180" show-overflow-tooltip>
+        <v-slot slot-scope="scope">{{scope.row.project_name}}</v-slot>
+      </el-table-column>
+      <el-table-column prop="group" label="所属团队" show-overflow-tooltip>
+        <v-slot slot-scope="scope">{{scope.row.group}}</v-slot>
+      </el-table-column>
+      <el-table-column prop="time" label="提交时间" show-overflow-tooltip>
+        <v-slot slot-scope="scope">{{scope.row.time}}</v-slot>
+      </el-table-column>
+      <el-table-column prop="status" label="状态" show-overflow-tooltip>
+        <v-slot slot-scope="scope">{{scope.row.status}}</v-slot>
+      </el-table-column>
+
+      <el-table-column label="详情" show-overflow-tooltip>
+>>>>>>> f229b5279df2272c3fbcbc2872956d3617d92e89
         <v-slot slot-scope="scope">
           <el-button class="fancy-btn" type="info" round @click="getDetails(scope.row.audit_id)">
             详情
@@ -70,11 +93,11 @@
 <script>
 export default {
   methods: {
-    tableRowClassName({row, rowIndex}) {
-      return rowIndex%2 === 1 ? 'warning-row' : 'success-row';
-      // TODO更改状态方法
 
+    handleCurrentChange(row) {
+      console.log(row);
     },
+
     getDetails(audit_id) {
       this.flag = audit_id
     },
@@ -85,7 +108,6 @@ export default {
       this.currentPage=val
     },
     init() {
-      this.tableRowClassName(1, 3);
 
     }
   },
