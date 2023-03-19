@@ -8,6 +8,11 @@ export default {
             menuName: '制定培养方案',
         },
         {
+            path: 'OverView',
+            menuName: '培养方案总览',
+            component: () => import('_back/views/plan/PlanMainView.vue')
+        },
+        {
             path: 'read',
             menuName: '查看培养方案',
             component: () => import('_back/views/plan/PlanReadView.vue')

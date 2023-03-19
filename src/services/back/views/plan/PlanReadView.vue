@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="6">
             <el-button class="el-button--mini el-button--info" plain>
-              <el-link href="home" type="info">
+              <el-link href="OverView" type="info">
                 <el-icon class="el-icon-s-home"></el-icon>总览
               </el-link>
             </el-button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -171,6 +171,8 @@ export default {
   // 数据
   data () {
     return {
+      //计划的ID
+      planId:1,
       //抽屉标题
       drawerTitle: '',
       //抽屉里的数据是否加载过了
@@ -196,7 +198,7 @@ export default {
         rule: '国家级奖项',
         score: 4,
         material: '证书原件以及复印件',
-        remark: '竞赛级别以官方认定为准@@r0r4?r0c2?r4c2'
+        remark: '竞赛级别以官方认定为准@@r0r4?r0c2?r4c2?r3r4'
       },{
         programName: '竞赛活动',
         spliceName: '学校认定的一档竞赛',
@@ -211,7 +213,7 @@ export default {
           rule: '国家级奖项',
           score: 4,
           material: '证书原件以及复印件',
-          remark: '竞赛级别以官方认定为准@@r3c2?r3r2'
+          remark: '竞赛级别以官方认定为准'
         },
         {
           programName: '竞赛活动',
@@ -260,8 +262,22 @@ export default {
     }
   },
   methods: {
-    getTraining () {
-      return 1
+    getPlanDetail(){
+    //  在这里获取详情数据，记得带上路由里边的ID
+    },
+    routeChange(){
+      let that = this;
+      that.planId = that.$route.query.planId===undefined?1:parseInt(that.$route.query.planId);//获取传参的aid
+      //判断用户是否存在
+      if(localStorage.getItem('userInfo')){
+        that.haslogin = true;
+        that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        that.userId = that.userInfo.userId;
+      }else{
+        that.haslogin = false;
+      }
+      //获取详情接口
+      this.getPlanDetail()
     },
     //表格划分返回
     arraySpanMethod({rowIndex,columnIndex}){
@@ -292,7 +308,16 @@ export default {
       }
     },
   },
-  created(){},
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route':'routeChange'
+  },
+  components: { //定义组件
+
+  },
+  created() { //初始化生命周期函数，监听路由改变
+    this.routeChange();
+  },
 }
 </script>
 
