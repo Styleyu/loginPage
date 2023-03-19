@@ -1,26 +1,50 @@
 <template>
   <div>
     <p>flag的值为:{{ this.flag }}</p>
-    <el-table id="progressTable" :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+    <el-table id="progressTable" style="width: 100%" :row-class-name="tableRowClassName">
       <el-table-column prop="audit_id" label="项目编号" width="180">
+        <v-slot slot-scope="scope">
+          {{scope.row.audit_id}}}
+        </v-slot>
       </el-table-column>
       <el-table-column prop="project_name" label="项目名称" width="180">
+        <v-slot slot-scope="scope">
+          {{scope.row.project_name}}}
+        </v-slot>
       </el-table-column>
       <el-table-column prop="group" label="所属团队">
+        <v-slot slot-scope="scope">
+          {{scope.row.group}}}
+        </v-slot>
       </el-table-column>
       <el-table-column prop="time" label="提交时间">
+        <v-slot slot-scope="scope">
+          {{scope.row.time}}}
+        </v-slot>
       </el-table-column>
-      <el-table-column prop="status" label="状态">
-<!--        <v-slot slot-scope="scope">-->
-<!--          <span v-if="scope.row.status === 1">已提交{{scope.row.status}}</span>-->
-<!--          <span v-else-if="scope.row.status === 2">班级审核通过{{scope.row.status}}</span>-->
-<!--          <span v-else-if="scope.row.status === 3">年级审核通过{{scope.row.status}}</span>-->
-<!--          <span v-else-if="scope.row.status === 4">院级审核通过{{scope.row.status}}</span>-->
-<!--          <span v-else>已驳回</span>-->
-<!--        </v-slot>-->
+      <el-table-column prop="score" label="预估得分">
+        <v-slot slot-scope="scope">
+          {{scope.row.score}}}
+        </v-slot>
+      </el-table-column>
+      <el-table-column prop="material" label="证明材料">
+        <v-slot slot-scope="scope">
+          {{scope.row.material}}}
+        </v-slot>
+      </el-table-column>
+      <el-table-column prop="upload_user" label="上传者">
+        <v-slot slot-scope="scope">
+          {{scope.row.upload_user}}}
+        </v-slot>
       </el-table-column>
 
-      <el-table-column label="详情">
+      <el-table-column prop="status" label="状态">
+        <v-slot slot-scope="scope">
+          {{scope.row.status}}}
+        </v-slot>
+      </el-table-column>
+
+      <el-table-column label="审核详情">
         <v-slot slot-scope="scope">
           <el-button class="fancy-btn" type="info" round @click="getDetails(scope.row.audit_id)">
             详情
@@ -28,6 +52,17 @@
         </v-slot>
       </el-table-column>
     </el-table>
+    <div class="page-block">
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 20, 30]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+      </el-pagination>
+    </div>
   </div>
 
 
@@ -43,6 +78,12 @@ export default {
     getDetails(audit_id) {
       this.flag = audit_id
     },
+    handleSizeChange(val){
+      this.pageSize=val
+    },
+    handleCurrentChange(val){
+      this.currentPage=val
+    },
     init() {
       this.tableRowClassName(1, 3);
 
@@ -51,6 +92,10 @@ export default {
   data() {
     return {
       flag: 0,
+      //分页器数据
+      currentPage:1,
+      pageSize:10,
+      total:100,
       tableData: [{
         audit_id: '512882269587',
         project_name: '218317134553',
