@@ -6,9 +6,10 @@ export default {
         {
             path: 'create',
             menuName: '制定培养方案',
+            component: ()=>import('_back/views/plan/PlanCreatView.vue')
         },
         {
-            path: 'OverView',
+            path: 'overView',
             menuName: '培养方案总览',
             component: () => import('_back/views/plan/PlanMainView.vue')
         },
