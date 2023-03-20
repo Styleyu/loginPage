@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="6">
             <el-button class="el-button--mini el-button--info" plain>
-              <el-link href="home" type="info">
+              <el-link href="OverView" type="info">
                 <el-icon class="el-icon-s-home"></el-icon>总览
               </el-link>
             </el-button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -75,6 +75,14 @@
                 </template>
                 <div v-text="training.download+'次'"></div>
               </el-descriptions-item>
+              <el-descriptions-item>
+                <template slot="label">
+                  <i class="el-icon-view"></i>
+                  培养方案
+                </template>
+<!--                培养方案查看-->
+                <div><el-button class="el-button--mini el-button--warning" @click="viewTrainingTable" plain>查看</el-button></div>
+              </el-descriptions-item>
             </el-descriptions>
           </el-card>
           <hr class="aside-split">
@@ -102,6 +110,54 @@
               {{relative.title}}&nbsp;——&nbsp;{{relative.author}}
             </div>
           </el-card>
+
+<!--          隐藏层：这里弹出的是培养方案详情的抽屉-->
+          <el-drawer
+              :title=training.title
+              :visible.sync="drawerVis"
+              direction="rtl"
+              size="70%">
+<!--            隐藏层内的数据表格-->
+            <el-table
+                :data="drawerData"
+                :span-method="arraySpanMethod"
+                border
+                stripe
+                style="width: 100%">
+              <el-table-column
+                  prop="programName"
+                  label="项目名称"
+                  width="200%">
+              </el-table-column>
+              <el-table-column
+                  prop="spliceName"
+                  label="分项名称"
+                  width="200%"
+              >
+              </el-table-column>
+              <el-table-column
+                  prop="rule"
+                  width="200%"
+                  label="细则">
+              </el-table-column>
+              <el-table-column
+                  prop="score"
+                  width="50%"
+                  label="学分">
+              </el-table-column>
+              <el-table-column
+                  prop="material"
+                  width="200%"
+                  label="提交材料">
+              </el-table-column>
+              <el-table-column
+                  prop="remark"
+                  width="200%"
+                  label="备注">
+              </el-table-column>
+            </el-table>
+          </el-drawer>
+<!--          抽屉结束-->
         </el-aside>
       </el-container>
     </el-container>
@@ -109,10 +165,64 @@
 </template>
 
 <script>
+import {TableArrayRegister} from "@/utils/TableArrayRegister";
+
 export default {
   // 数据
   data () {
     return {
+      //计划的ID
+      planId:1,
+      //抽屉标题
+      drawerTitle: '',
+      //抽屉里的数据是否加载过了
+      drawerIsLoaded: false,
+      //抽屉内的数据行列数
+      drawerDataRows:-1,
+      drawerDataCols:-1,
+      //数据的行列阵列解析结果表格
+      drawerDataArray: [[]],
+      //抽屉内数据加载动画控制
+      drawerTableLoading:true,
+      //抽屉控制
+      drawerVis:false,
+      //抽屉数据
+      /*在备注内通过@@区分划分关键字，通过划分关键字来划分数据。
+        需要注意的是，我选择以行为基准.
+        @@之后始终以r开头，其后紧跟一个数字n，表示在第n列出现复杂化
+        其后紧跟一个r或c，表示要侵占的行或者列，其后紧跟一个数，代表从n列开始，这一列会侵占多少行或者列
+        行内有多个数据需要合并时，单个?直接往后增量添加就行，如@@r0r2?r1c3*/
+      drawerData:[{
+        programName: '竞赛活动',
+        spliceName: '学校认定的一档竞赛',
+        rule: '国家级奖项',
+        score: 4,
+        material: '证书原件以及复印件',
+        remark: '竞赛级别以官方认定为准@@r0r4?r0c2?r4c2?r3r4'
+      },{
+        programName: '竞赛活动',
+        spliceName: '学校认定的一档竞赛',
+        rule: '国家级奖项',
+        score: 4,
+        material: '证书原件以及复印件',
+        remark: '竞赛级别以官方认定为准@@992c'
+      },
+        {
+          programName: '竞赛活动',
+          spliceName: '学校认定的一档竞赛',
+          rule: '国家级奖项',
+          score: 4,
+          material: '证书原件以及复印件',
+          remark: '竞赛级别以官方认定为准'
+        },
+        {
+          programName: '竞赛活动',
+          spliceName: '学校认定的一档竞赛',
+          rule: '国家级奖项',
+          score: 4,
+          material: '证书原件以及复印件',
+          remark: '竞赛级别以官方认定为准'
+        }],
       // 培养方案详情数据
       training: {
         author: '小明',
@@ -137,6 +247,7 @@ export default {
           },
         ]
       },
+      //相关数据
       relatives:[{
         title:"关联的培养方案1",
         author: "教师1"
@@ -151,11 +262,62 @@ export default {
     }
   },
   methods: {
-    getTraining () {
-      return 1
-    }
+    getPlanDetail(){
+    //  在这里获取详情数据，记得带上路由里边的ID
+    },
+    routeChange(){
+      let that = this;
+      that.planId = that.$route.query.planId===undefined?1:parseInt(that.$route.query.planId);//获取传参的aid
+      //判断用户是否存在
+      if(localStorage.getItem('userInfo')){
+        that.haslogin = true;
+        that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        that.userId = that.userInfo.userId;
+      }else{
+        that.haslogin = false;
+      }
+      //获取详情接口
+      this.getPlanDetail()
+    },
+    //表格划分返回
+    arraySpanMethod({rowIndex,columnIndex}){
+      return this.drawerDataArray[rowIndex][columnIndex]
+      // console.log("["+rowIndex+","+columnIndex+"]")
+      // return [1,1]
+      // console.log(this.drawerDataArray[rowIndex][columnIndex])
+    },
+    //抽屉打开动作
+    viewTrainingTable(){
+      //抽屉可视
+      this.drawerVis=true;
+      /**
+       * 在这里加载抽屉内的培养方案数据
+       */
+      //培养方案数据是否已经被加载过一次，没有就在这里边加载数据
+      if (!this.drawerIsLoaded){
+
+        //将上述操作封装之后，上述操作执行成功，再更改状态位和数据行数、列数
+        this.drawerDataRows=this.drawerData.length
+        this.drawerDataCols=Object.keys(this.drawerData[0]).length
+        // console.log(this.drawerDataCols)
+        this.drawerIsLoaded=true;
+        // console.log(this.drawerDataRows)
+      //  此时我们加载数据显示阵列
+        this.drawerDataArray=TableArrayRegister(this.drawerData)
+        // console.log(this.drawerDataArray)
+      }
+    },
   },
-  created(){}
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route':'routeChange'
+  },
+  components: { //定义组件
+
+  },
+  created() { //初始化生命周期函数，监听路由改变
+    this.routeChange();
+  },
 }
 </script>
 
