@@ -38,7 +38,7 @@
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-mobile-phone">
+                <i class="el-icon-time">
                 </i>提交时间
               </template>
               {{project_commit.time}}
@@ -52,14 +52,14 @@
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-location-outline">
+                <i class="el-icon-s-custom">
                 </i>所属团队
               </template>
               {{project_commit.group}}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-tickets">
+                <i class="el-icon-s-comment">
                 </i>预估得分
               </template>
               {{project_commit.score}}
@@ -67,7 +67,7 @@
 
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-office-building">
+                <i class="el-icon-s-release">
                 </i>证明材料
               </template>
               {{project_commit.material}}
@@ -88,21 +88,21 @@
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-mobile-phone">
+                <i class="el-icon-s-claim">
                 </i>状态
               </template>
               {{class_exanine.status}}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-location-outline">
+                <i class="el-icon-time">
                 </i>通过时间
               </template>
               {{class_exanine.pass_time}}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-tickets">
+                <i class="el-icon-collection-tag">
                 </i>级别
               </template>
               <el-tag size="small">
@@ -111,7 +111,7 @@
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-office-building">
+                <i class="el-icon-message">
                 </i>审核意见
               </template>
               {{class_exanine.message}}
