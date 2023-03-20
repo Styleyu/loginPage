@@ -28,12 +28,6 @@ export default {
         menuName: '项目审批',
         menuIcon: '',
       },
-      {
-        path: 'examine_details',
-        component: () => import('_back/views/project/ProjectExamineDetailsView.vue'),
-        menuName: '项目审批详情(方便查看)',
-        menuIcon: '',
-      },
-      
+
     ]
   }
