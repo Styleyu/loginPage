@@ -44,10 +44,16 @@
         </el-table-column>
 
         <el-table-column prop="material" label="证明材料">
+<!--          <v-slot slot-scope="scope">-->
+<!--            <el-popover placement="right" :title="scope.row.material" trigger="hover" width="250">-->
+<!--              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material"></el-image>-->
+<!--              <el-image :src="scope.row.material"></el-image>-->
+<!--            </el-popover>-->
+<!--          </v-slot>-->
           <v-slot slot-scope="scope">
-            <el-popover placement="right" :title="scope.row.material" trigger="hover" width="250">
-              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material"></el-image>
-              <el-image :src="scope.row.material"></el-image>
+            <el-popover placement="right"  trigger="hover">
+              <el-image slot="reference" :src="scope.row.material" fit="contain" :alt="scope.row.material" style="width: 100px; height: 100px"></el-image>
+              <el-image :src="scope.row.material" ></el-image>
             </el-popover>
           </v-slot>
         </el-table-column>
@@ -62,16 +68,19 @@
         </el-table-column>
 
 
-        <!--        TODO 按钮太难看了换一个-->
         <el-table-column prop="operate" label="操作" width="300">
           <v-slot slot-scope="scope">
-            <el-button class="fancy-btn" type="info" round @click="getDetails(scope.row.audit_id)">
+            <el-button class="fancy-btn"
+                       type="info"
+                       round
+                       size="small"
+                       @click="getDetails(scope.row.audit_id)">
               通过
             </el-button>
-            <el-button class="fancy-btn" type="info" round @click="getDetails(scope.row.audit_id)">
+            <el-button class="fancy-btn" type="info" round size="small" @click="getDetails(scope.row.audit_id)">
               退回
             </el-button>
-            <el-button class="fancy-btn" type="info" round @click="getDetails(scope.row.audit_id)">
+            <el-button class="fancy-btn" type="info" round size="small" @click="getDetails(scope.row.audit_id)">
               详情
             </el-button>
           </v-slot>
@@ -88,13 +97,16 @@
           :page-sizes="[5, 10, 20, 30]"
           :page-size="100"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="total">
+          :total="total"
+          background>
       </el-pagination>
     </div>
     <!--  获取多选的选中项整列信息-->
     <!--    在控制台里面看-->
     <div style="margin-top: 20px">
       <el-button @click="btnGetSelection()">获取选中项整列信息</el-button>
+      <el-button @click="btnGetSelection()">全部通过</el-button>
+      <el-button @click="btnGetSelection()">全部打回</el-button>
     </div>
   </div>
 
@@ -114,13 +126,6 @@ export default {
       } else if (row.status === '0') {
         return 'warning-row';
       }
-
-
-      // if (rowIndex === 1) {
-      //   return 'warning-row';
-      // } else if (rowIndex === 3) {
-      //   return 'success-row';
-      // }
       return '';
     },
     handleSelectionChange(selection) {
@@ -149,9 +154,9 @@ export default {
   data() {
     return {
       // 欢迎语相关
-      teacher_name: '',
+      teacher_name: '蔡',
 
-      pending_review: '',
+      pending_review: '2',
       //分页器数据
       currentPage: 1,
       pageSize: 10,
@@ -194,7 +199,6 @@ export default {
 
 }
 </script>
-<!-- TODO -->
 
 <style lang="scss">
 .page-block {

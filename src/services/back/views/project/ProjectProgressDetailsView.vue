@@ -1,11 +1,7 @@
 <template>
-  <!-- <el-steps :active="2" align-center>
-  <el-step title="步骤1" description="这是一段很长很长很长的描述性文字"></el-step>
-  <el-step title="步骤2" description="这是一段很长很长很长的描述性文字"></el-step>
-  <el-step title="步骤3" description="这是一段很长很长很长的描述性文字"></el-step>
-  <el-step title="步骤4" description="这是一段很长很长很长的描述性文字"></el-step>
-  </el-steps> -->
-  <div>
+
+
+  <div id="steps">
     <el-steps :active="activeIndex - 1"
               finish-status="success"
               simple
@@ -23,185 +19,272 @@
     <el-divider/>
     <div id="">
       <el-tabs type="border-card" stretch>
-        <!-- TODO 重构一下,把数据放data里面 -->
-        <el-tab-pane label="项目提交" v-if="activeIndex >= 1">
-          <el-descriptions class="margin-top"
-                           :column="2"
-                           border>
-            <el-descriptions-item >
-              <template slot="label">
-                <i class="el-icon-user-solid">
-                </i>上传者
-              </template>
-
-              {{project_commit.upload_user}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-time">
-                </i>提交时间
-              </template>
-              {{project_commit.time}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-mobile-phone">
-                </i>项目名称
-              </template>
-              {{project_commit.project_name}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-s-custom">
-                </i>所属团队
-              </template>
-              {{project_commit.group}}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-s-comment">
-                </i>预估得分
-              </template>
-              {{project_commit.score}}
-            </el-descriptions-item>
-
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-s-release">
-                </i>证明材料
-              </template>
-              {{project_commit.material}}
-            </el-descriptions-item>
-          </el-descriptions>
-        </el-tab-pane>
-        <el-tab-pane label="班级审核" v-if="activeIndex >= 2">
+        <el-tab-pane label="项目提交" v-if="activeIndex >= 1" id="project_commit">
           <el-descriptions class="margin-top"
                            :column="3"
                            border>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label" id="project_name">
+                <i class="el-icon-user-solid">
+                </i>项目名称
+              </div>
+              {{ project_commit.project_name }}
+            </el-descriptions-item>
+
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-user-solid">
+                </i>项目负责人
+              </div>
+              {{ project_commit.principal }}
+            </el-descriptions-item>
+
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-time">
+                </i>提交时间
+              </div>
+              {{ project_commit.time }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-mobile-phone">
+                </i>加分类型
+              </div>
+              <el-tag size="small">
+                {{ project_commit.classification }}
+              </el-tag>
+              <el-tag size="small">
+                {{ project_commit.secondary_classification }}
+              </el-tag>
+              <el-tag size="small">
+                {{ project_commit.three_level_classification }}
+              </el-tag>
+
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-s-custom">
+                </i>预估得分
+              </div>
+              {{ project_commit.score }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-s-comment">
+                </i>指导老师
+              </div>
+              {{ project_commit.score }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-s-comment">
+                </i>所属团队所属成员
+              </div>
+              <el-popover
+                  placement="right"
+                  width="400"
+                  trigger="hover">
+                <el-table :data="project_commit.team_member"
+                          border
+                          stripe
+                          highlight-current-row>
+                  <el-table-column label="姓名">
+                    <v-slot slot-scope="scope">
+                      {{ scope.row.name }}
+                    </v-slot>
+                  </el-table-column>
+                  <el-table-column label="学号">
+                    <v-slot slot-scope="scope">
+                      {{ scope.row.student_id }}
+                    </v-slot>
+                  </el-table-column>
+                  <el-table-column label="预估得分">
+                    <v-slot slot-scope="scope">
+                      {{ scope.row.score }}
+                    </v-slot>
+                  </el-table-column>
+                </el-table>
+                <el-button slot="reference" size="small">查看成员信息</el-button>
+              </el-popover>
+            </el-descriptions-item>
+
+            <el-descriptions-item>
+              <div slot="label">
+                <i class="el-icon-s-release">
+                </i>证明材料
+              </div>
+              <el-popover placement="right"  trigger="hover">
+                <el-image slot="reference" :src="project_commit.material" :alt="project_commit.material" style="width: 100px; height: 100px"></el-image>
+                <el-image :src="project_commit.material"></el-image>
+              </el-popover>
+            </el-descriptions-item>
+          </el-descriptions>
+        </el-tab-pane>
+
+        <el-tab-pane label="班级审核" v-if="activeIndex >= 2" id="class_examine">
+          <el-descriptions class="margin-top"
+                           :column="3"
+                           border>
+            <el-descriptions-item>
+              <div slot="label">
                 <i class="el-icon-user">
                 </i>审核人
-              </template>
-
-              {{class_exanine.reviewer}}
+              </div>
+              {{ class_examine.reviewer }}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label">
                 <i class="el-icon-s-claim">
                 </i>状态
-              </template>
-              {{class_exanine.status}}
+              </div>
+              <div>
+                <span v-if="class_examine.status === '2'">
+                  <el-tag type="danger">不通过</el-tag>
+                </span>
+                <span v-else-if="class_examine.status === '0'">
+                  <el-tag type="warning">待审核</el-tag>
+                </span>
+                <span v-else-if="class_examine.status === '1'">
+                  <el-tag type="success">通过</el-tag>
+                </span>
+              </div>
+
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label">
                 <i class="el-icon-time">
-                </i>通过时间
-              </template>
-              {{class_exanine.pass_time}}
+                </i>审核时间
+              </div>
+              {{ class_examine.examine_time }}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label">
                 <i class="el-icon-collection-tag">
                 </i>级别
-              </template>
+              </div>
               <el-tag size="small">
                 班级
               </el-tag>
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label">
                 <i class="el-icon-message">
                 </i>审核意见
-              </template>
-              {{class_exanine.message}}
+              </div>
+              {{ class_examine.message }}
             </el-descriptions-item>
           </el-descriptions>
         </el-tab-pane>
-        <el-tab-pane label="年级审核" v-if="activeIndex >= 3">
+
+        <el-tab-pane label="年级审核" v-if="activeIndex >= 3" id="grade_examine">
           <el-descriptions class="margin-top"
-                           :column="2"
+                           :column="3"
                            border>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label">
                 <i class="el-icon-user">
                 </i>审核人
-              </template>
-
-              {{}}
+              </div>
+              {{ grade_examine.reviewer }}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-mobile-phone">
+              <div slot="label">
+                <i class="el-icon-s-claim">
                 </i>状态
-              </template>
-              18100000000
+              </div>
+              <div>
+                <span v-if="grade_examine.status === '2'">
+                  <el-tag type="danger">不通过</el-tag>
+                </span>
+                <span v-else-if="grade_examine.status === '0'">
+                  <el-tag type="warning">待审核</el-tag>
+                </span>
+                <span v-else-if="grade_examine.status === '1'">
+                  <el-tag type="success">通过</el-tag>
+                </span>
+              </div>
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-location-outline">
-                </i>通过时间
-              </template>
+              <div slot="label">
+                <i class="el-icon-time">
+                </i>审核时间
+              </div>
+              {{ grade_examine.examine_time }}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-tickets">
-                </i>备注
-              </template>
+              <div slot="label">
+                <i class="el-icon-collection-tag">
+                </i>级别
+              </div>
               <el-tag size="small">
-
+                年级
               </el-tag>
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-office-building">
+              <div slot="label">
+                <i class="el-icon-message">
                 </i>审核意见
-              </template>
+              </div>
+              {{ grade_examine.message }}
             </el-descriptions-item>
           </el-descriptions>
         </el-tab-pane>
-        <el-tab-pane label="院级审核" v-if="activeIndex >= 4">
+
+        <el-tab-pane label="院级审核" v-if="activeIndex >= 4" id="college_examine">
           <el-descriptions class="margin-top"
-                           :column="2"
+                           :column="3"
                            border>
             <el-descriptions-item>
-              <template slot="label">
+              <div slot="label">
                 <i class="el-icon-user">
                 </i>审核人
-              </template>
-
-              {{}}
+              </div>
+              {{ college_examine.reviewer }}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-mobile-phone">
+              <div slot="label">
+                <i class="el-icon-s-claim">
                 </i>状态
-              </template>
-              18100000000
+              </div>
+              <div>
+                <span v-if="college_examine.status === '2'">
+                  <el-tag type="danger">不通过</el-tag>
+                </span>
+                <span v-else-if="college_examine.status === '0'">
+                  <el-tag type="warning">待审核</el-tag>
+                </span>
+                <span v-else-if="college_examine.status === '1'">
+                  <el-tag type="success">通过</el-tag>
+                </span>
+              </div>
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-location-outline">
-                </i>通过时间
-              </template>
+              <div slot="label">
+                <i class="el-icon-time">
+                </i>审核时间
+              </div>
+              {{ college_examine.examine_time }}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-tickets">
-                </i>备注
-              </template>
+              <div slot="label">
+                <i class="el-icon-collection-tag">
+                </i>级别
+              </div>
               <el-tag size="small">
-
+                院级
               </el-tag>
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-office-building">
+              <div slot="label">
+                <i class="el-icon-message">
                 </i>审核意见
-              </template>
+              </div>
+              {{ college_examine.message }}
             </el-descriptions-item>
           </el-descriptions>
         </el-tab-pane>
+
       </el-tabs>
     </div>
   </div>
@@ -213,40 +296,66 @@ export default {
       // 当前节点位置
       activeIndex: 4,
 
+
       // 当前节点状态wait / process / finish / error / success
       process_status: 'error',
-      project_commit:{
-        upload_user:'',
-        time:'',
-        project_name:'',
-        group:'',
-        score:'',
-        material:'',
-      },
-      class_exanine:{
-        reviewer:'',
-        status:'',
-        pass_time:'',
+      project_commit: {
+        // 项目名称
+        project_name: '项目名称',
+        // 项目负责人
+        principal: '项目负责人',
+        // 提交时间
+        time: '2023/03/21',
+        // 加分类型
 
-        message:'',
-      },
-      grade_examine:{
-        upload_user:'',
-        time:'',
-        project_name:'',
-        group:'',
-        score:'',
-        material:'',
-      },
-      college_examine:{
-        upload_user:'',
-        time:'',
-        project_name:'',
-        group:'',
-        score:'',
-        material:'',
-      },
+        classification: '一级项目分类',
+        secondary_classification: '二级项目分类',
+        three_level_classification: '三级项目分类',
 
+        // 预估得分
+        score: '10',
+
+        group: '',
+
+        material: 'https://c.cidianwang.com/file/shufa/kaishu/renzheng/201883198133e39f.jpg',
+        // 小组成员信息
+        team_member: [
+          {
+            name: '张三',
+            student_id: '201800000000',
+            score: '2.5',
+          }],
+      },
+      class_examine: {
+        // 审核人
+        reviewer: '班级审核人',
+        // 状态 1通过 0待审核 2不通过
+        status: '1',
+        // 审核时间
+        examine_time: '2021',
+        // 审核意见
+        message: '我的评价是:不寄',
+      },
+      grade_examine: {
+        // 审核人
+        reviewer: '年级审核人',
+        // 状态 1通过 0待审核 2不通过
+        status: '1',
+        // 审核时间
+        examine_time: '2022',
+        // 审核意见
+        message: '我的评价是:不寄',
+      },
+      college_examine: {
+        // 审核人
+        reviewer: '院级审核人',
+        // 状态 1通过 0待审核 2不通过
+        status: '2',
+        // 审核时间
+        examine_time: '2023',
+        // 审核意见
+        message: '我的评价是:寄喽',
+      },
 
 
     };
@@ -256,20 +365,14 @@ export default {
 
   },
   methods: {
-    setChosenIndex(index) {
-      // this.activeIndex = index;
-      if (index <= this.activeIndex) {
-        this.chosenIndex = index;
-
-      }
-
-    },
     init() {
-      this.chosenIndex = this.activeIndex;
+      //返回空白值
+      this.project_commit.upload_user = '';
+
     },
+
 
   }
 }
 </script>
-<!-- TODO -->
 <style lang="scss"></style>
