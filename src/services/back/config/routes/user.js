@@ -15,6 +15,11 @@ export default {
       component: () => import('_back/views/user/UserTestView.vue'),
       menuName: '用户测试',
       menuIcon: '',
+    },
+    {
+      path: 'manage',
+      component: () => import('_back/views/user/UserManage.vue'),
+      menuName: '用户管理'
     }
   ]
 }
