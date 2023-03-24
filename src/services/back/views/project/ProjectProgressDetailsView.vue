@@ -7,6 +7,7 @@
               simple
               :process-status="process_status"
               style="margin-top: 50px">
+<!--      process-status官网文档说是string类型,但是webstorm提示是StepStatus类型,也没找到StepStatus类型具体信息-->
       <el-step title="项目提交">
       </el-step>
       <el-step title="班级审核">
@@ -90,19 +91,19 @@
                           stripe
                           highlight-current-row>
                   <el-table-column label="姓名">
-                    <v-slot slot-scope="scope">
+                    <template v-slot:default="scope">
                       {{ scope.row.name }}
-                    </v-slot>
+                    </template>
                   </el-table-column>
                   <el-table-column label="学号">
-                    <v-slot slot-scope="scope">
+                    <template v-slot:default="scope">
                       {{ scope.row.student_id }}
-                    </v-slot>
+                    </template>
                   </el-table-column>
                   <el-table-column label="预估得分">
-                    <v-slot slot-scope="scope">
+                    <template v-slot:default="scope">
                       {{ scope.row.score }}
-                    </v-slot>
+                    </template>
                   </el-table-column>
                 </el-table>
                 <el-button slot="reference" size="small">查看成员信息</el-button>
@@ -366,8 +367,9 @@ export default {
   },
   methods: {
     init() {
-      //返回空白值
-      this.project_commit.upload_user = '';
+
+
+
 
     },
 

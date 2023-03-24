@@ -3,7 +3,7 @@
   <div id="pageBody">
     <div id="header">
       <el-header>
-        <el-row type="flex" class="row-bg" justify="space-between" style="width: 100%">
+        <el-row type="flex" class="row-bg" justify="center" style="width: 100%">
           <el-col :span="6">
             <div class="grid-content bg-purple">
               <el-button type="primary" icon="el-icon-plus" size="small" @click="jumpToNewCommit">添加新项目</el-button>
@@ -39,62 +39,67 @@
         </el-table-column>
 
         <el-table-column prop="project_name" label="项目名称" width="130">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.project_name }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="group" label="所属团队" width="130">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.group }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="time" label="提交时间" width="130">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.time }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="score" label="本人预估得分">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.score }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="material" label="证明材料">
-          <v-slot slot-scope="scope">
-            <el-popover placement="right"  trigger="hover" width="20" height="10">
-              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material" style="width: 100px; height: 100px"></el-image>
-              <el-image :src="scope.row.material"></el-image>
-            </el-popover>
-          </v-slot>
+          <template v-slot:default="scope">
+<!--            <el-popover placement="right"  trigger="hover" width="20" height="10">-->
+<!--              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material" style="width: 100px; height: 100px"></el-image>-->
+<!--              <el-image :src="scope.row.material"></el-image>-->
+<!--            </el-popover>-->
+            <el-image
+                style="width: 100px; height: 100px"
+                :src="scope.row.material"
+            >
+            </el-image>
+          </template>
         </el-table-column>
 
         <el-table-column prop="principal" label="项目负责人">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.principal }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="status" label="状态">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             <span v-if="scope.row.status === '-1'">被退回</span>
             <span v-else-if="scope.row.status === '0'">待审核</span>
             <span v-else-if="scope.row.status === '1'">班级审核通过</span>
             <span v-else-if="scope.row.status === '2'">年级审核通过</span>
             <span v-else-if="scope.row.status === '3'">院级审核通过</span>
-          </v-slot>
+          </template>
         </el-table-column>
 
 
         <el-table-column label="审核详情">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             <el-button type="info" @click="jumpToDetails(scope.row)">
               <span>详情</span>
             </el-button>
 
-          </v-slot>
+          </template>
         </el-table-column>
       </el-table>
     </div>

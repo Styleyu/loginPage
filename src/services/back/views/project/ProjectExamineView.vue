@@ -26,64 +26,63 @@
         </el-table-column>
 
         <el-table-column prop="project_name" label="项目名称" width="130">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.project_name }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="group" label="所属团队" width="130">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.group }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="time" label="提交时间">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.time }}
-          </v-slot>
+          </template>
         </el-table-column>
 
         <el-table-column prop="material" label="证明材料">
-<!--          <v-slot slot-scope="scope">-->
+<!--          <template v-slot:default="scope">-->
 <!--            <el-popover placement="right" :title="scope.row.material" trigger="hover" width="250">-->
 <!--              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material"></el-image>-->
 <!--              <el-image :src="scope.row.material"></el-image>-->
 <!--            </el-popover>-->
-<!--          </v-slot>-->
-          <v-slot slot-scope="scope">
+<!--          </template>-->
+          <template v-slot:default="scope">
             <el-popover placement="right"  trigger="hover">
               <el-image slot="reference" :src="scope.row.material" fit="contain" :alt="scope.row.material" style="width: 100px; height: 100px"></el-image>
               <el-image :src="scope.row.material" ></el-image>
             </el-popover>
-          </v-slot>
+          </template>
         </el-table-column>
 
 
         <!--        此处是给领导看的所以只有待审核和已审核两种状态-->
         <!--        已审核状态自动排序到后面或者根据设置直接不显示-->
         <el-table-column prop="status" label="审核状态">
-          <v-slot slot-scope="scope">
+          <template v-slot:default="scope">
             {{ scope.row.status === '1' ? '待审核' : '已审核' }}
-          </v-slot>
+          </template>
         </el-table-column>
 
 
         <el-table-column prop="operate" label="操作" width="300">
-          <v-slot slot-scope="scope">
+          <template>
             <el-button class="fancy-btn"
                        type="info"
                        round
-                       size="small"
-                       @click="getDetails(scope.row.audit_id)">
+                       size="small">
               通过
             </el-button>
-            <el-button class="fancy-btn" type="info" round size="small" @click="getDetails(scope.row.audit_id)">
+            <el-button class="fancy-btn" type="info" round size="small">
               退回
             </el-button>
-            <el-button class="fancy-btn" type="info" round size="small" @click="getDetails(scope.row.audit_id)">
+            <el-button class="fancy-btn" type="info" round size="small" >
               详情
             </el-button>
-          </v-slot>
+          </template>
         </el-table-column>
 
       </el-table>
@@ -104,9 +103,9 @@
     <!--  获取多选的选中项整列信息-->
     <!--    在控制台里面看-->
     <div style="margin-top: 20px">
-      <el-button @click="btnGetSelection()">获取选中项整列信息</el-button>
-      <el-button @click="btnGetSelection()">全部通过</el-button>
-      <el-button @click="btnGetSelection()">全部打回</el-button>
+      <el-button>获取选中项整列信息</el-button>
+      <el-button >全部通过</el-button>
+      <el-button >全部打回</el-button>
     </div>
   </div>
 
@@ -115,10 +114,10 @@
 <script>
 export default {
   mounted() {
-    this.init()
+    // this.init()
   },
   methods: {
-    tableRowClassName({row}) {
+    tableRowClassName(row) {
 
       // 未审核列和已审核列判断
       if (row.status === '1') {
@@ -131,32 +130,22 @@ export default {
     handleSelectionChange(selection) {
       console.log(selection);
     },
-    getDetails(audit_id) {
-      this.flag = audit_id
-    },
+
     handleSizeChange(val) {
       this.pageSize = val
     },
     handleCurrentChange(val) {
       this.currentPage = val
     },
-    btnGetSelection() {
-      let selection = this.$refs.multipleTable.selection;
-      console.log(selection);
-    },
-    init() {
-      this.tableRowClassName(1, 3);
-      this.teacher_name = '蔡';
-      this.pending_review = 5;
-
-    }
+    // init() {
+    // }
   },
   data() {
     return {
       // 欢迎语相关
       teacher_name: '蔡',
-
-      pending_review: '2',
+      audit_id:'',
+      pending_review: '5',
       //分页器数据
       currentPage: 1,
       pageSize: 10,
