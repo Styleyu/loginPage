@@ -11,6 +11,9 @@ import FontAwesomeIcon from './config/fontUI'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+
+
+
 /* mixins */
 import mixins from './mixins'
 
@@ -22,10 +25,11 @@ Vue.config.productionTip = false
 mixins.forEach(m => Vue.mixin(m))
 
 new Vue({
+
   render: h => h(App),
   store,
   router,
-  beforeCreate(){
+  beforeCreate() {
     // 全局事件总线
     Vue.prototype.$bus = this
   }
