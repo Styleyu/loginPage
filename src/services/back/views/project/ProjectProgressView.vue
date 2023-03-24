@@ -3,26 +3,34 @@
   <div id="pageBody">
     <div id="header">
       <el-header>
-        <el-row type="flex" class="row-bg" justify="center" style="width: 100%">
+        <el-row class="row-bg"
+                justify="center"
+                style="width: 100%"
+                type="flex">
           <el-col :span="6">
             <div class="grid-content bg-purple">
-              <el-button type="primary" icon="el-icon-plus" size="small" @click="jumpToNewCommit">添加新项目</el-button>
+              <el-button icon="el-icon-plus"
+                         size="small"
+                         type="primary"
+                         @click="jumpToNewCommit">添加新项目
+              </el-button>
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="grid-content bg-purple-light" >
+            <div class="grid-content bg-purple-light">
               <p>应修学分：{{ earned_credits }} 实际已获得学分：{{ required_credits }}</p>
             </div>
           </el-col>
           <el-col :span="6">
             <div class="grid-content bg-purple">
-              <el-button type="primary" icon="el-icon-printer" size="small">打印</el-button>
+              <el-button icon="el-icon-printer"
+                         size="small"
+                         type="primary">打印
+              </el-button>
             </div>
           </el-col>
         </el-row>
       </el-header>
-
-
 
 
     </div>
@@ -30,59 +38,77 @@
     <div id="table">
       <el-table id="progressTable"
                 :data="tableData"
-                style="width: 100%"
                 :row-class-name="tableRowClassName"
                 border
-                highlight-current-row>
+                highlight-current-row
+                style="width: 100%">
 
-        <el-table-column label="序号" type="index" width="50">
+        <el-table-column label="序号"
+                         type="index"
+                         width="50">
         </el-table-column>
 
-        <el-table-column prop="project_name" label="项目名称" width="130">
+        <el-table-column label="项目名称"
+                         prop="project_name"
+                         width="130">
           <template v-slot:default="scope">
             {{ scope.row.project_name }}
           </template>
         </el-table-column>
 
-        <el-table-column prop="group" label="所属团队" width="130">
+        <el-table-column label="所属团队"
+                         prop="group"
+                         width="130">
           <template v-slot:default="scope">
             {{ scope.row.group }}
           </template>
         </el-table-column>
 
-        <el-table-column prop="time" label="提交时间" width="130">
+        <el-table-column label="提交时间"
+                         prop="time"
+                         width="130">
           <template v-slot:default="scope">
             {{ scope.row.time }}
           </template>
         </el-table-column>
 
-        <el-table-column prop="score" label="本人预估得分">
+        <el-table-column label="本人预估得分"
+                         prop="score">
           <template v-slot:default="scope">
             {{ scope.row.score }}
           </template>
         </el-table-column>
 
-        <el-table-column prop="material" label="证明材料">
+        <el-table-column label="证明材料"
+                         prop="material">
           <template v-slot:default="scope">
-<!--            <el-popover placement="right"  trigger="hover" width="20" height="10">-->
-<!--              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material" style="width: 100px; height: 100px"></el-image>-->
-<!--              <el-image :src="scope.row.material"></el-image>-->
-<!--            </el-popover>-->
+<!--                        <el-popover placement="right"-->
+<!--                                    trigger="hover"-->
+<!--                                    width="20"-->
+<!--                                    height="10">-->
+<!--                          <el-image slot="reference"-->
+<!--                                    :src="scope.row.material"-->
+<!--                                    :alt="scope.row.material"-->
+<!--                                    style="width: 100px; height: 100px"></el-image>-->
+<!--                          <el-image :src="scope.row.material"></el-image>-->
+<!--                        </el-popover>-->
             <el-image
-                style="width: 100px; height: 100px"
                 :src="scope.row.material"
+                style="width: 100px; height: 100px"
             >
             </el-image>
           </template>
         </el-table-column>
 
-        <el-table-column prop="principal" label="项目负责人">
+        <el-table-column label="项目负责人"
+                         prop="principal">
           <template v-slot:default="scope">
             {{ scope.row.principal }}
           </template>
         </el-table-column>
 
-        <el-table-column prop="status" label="状态">
+        <el-table-column label="状态"
+                         prop="status">
           <template v-slot:default="scope">
             <span v-if="scope.row.status === '-1'">被退回</span>
             <span v-else-if="scope.row.status === '0'">待审核</span>
@@ -95,7 +121,8 @@
 
         <el-table-column label="审核详情">
           <template v-slot:default="scope">
-            <el-button type="info" @click="jumpToDetails(scope.row)">
+            <el-button type="info"
+                       @click="jumpToDetails(scope.row)">
               <span>详情</span>
             </el-button>
 
@@ -106,14 +133,14 @@
 
     <div class="page-block">
       <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes="[5, 10, 20, 30]"
           :page-size="100"
-          layout="total, sizes, prev, pager, next, jumper"
+          :page-sizes="[5, 10, 20, 30]"
           :total="total"
-          background>
+          background
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange">
       </el-pagination>
     </div>
   </div>
@@ -125,8 +152,8 @@ export default {
   methods: {
     tableRowClassName({row}) {
       switch (row.status) {
-        case '0':
-          return 'success-row';
+        // case '0':
+        //   return 'success-row';
         case '1':
           return 'success-row';
         case '2':
