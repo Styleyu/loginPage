@@ -3,10 +3,11 @@
 
   <div id="steps">
     <el-steps :active="activeIndex - 1"
+              :process-status="process_status"
               finish-status="success"
               simple
-              :process-status="process_status"
               style="margin-top: 50px">
+      <!--      process-status官网文档说是string类型,但是webstorm提示是StepStatus类型,也没找到StepStatus类型具体信息-->
       <el-step title="项目提交">
       </el-step>
       <el-step title="班级审核">
@@ -18,13 +19,17 @@
     </el-steps>
     <el-divider/>
     <div id="">
-      <el-tabs type="border-card" stretch>
-        <el-tab-pane label="项目提交" v-if="activeIndex >= 1" id="project_commit">
-          <el-descriptions class="margin-top"
-                           :column="3"
-                           border>
+      <el-tabs stretch
+               type="border-card">
+        <el-tab-pane v-if="activeIndex >= 1"
+                     id="project_commit"
+                     label="项目提交">
+          <el-descriptions :column="3"
+                           border
+                           class="margin-top">
             <el-descriptions-item>
-              <div slot="label" id="project_name">
+              <div id="project_name"
+                   slot="label">
                 <i class="el-icon-user-solid">
                 </i>项目名称
               </div>
@@ -83,29 +88,31 @@
               </div>
               <el-popover
                   placement="right"
-                  width="400"
-                  trigger="hover">
+                  trigger="hover"
+                  width="400">
                 <el-table :data="project_commit.team_member"
                           border
-                          stripe
-                          highlight-current-row>
+                          highlight-current-row
+                          stripe>
                   <el-table-column label="姓名">
-                    <v-slot slot-scope="scope">
+                    <template v-slot:default="scope">
                       {{ scope.row.name }}
-                    </v-slot>
+                    </template>
                   </el-table-column>
                   <el-table-column label="学号">
-                    <v-slot slot-scope="scope">
+                    <template v-slot:default="scope">
                       {{ scope.row.student_id }}
-                    </v-slot>
+                    </template>
                   </el-table-column>
                   <el-table-column label="预估得分">
-                    <v-slot slot-scope="scope">
+                    <template v-slot:default="scope">
                       {{ scope.row.score }}
-                    </v-slot>
+                    </template>
                   </el-table-column>
                 </el-table>
-                <el-button slot="reference" size="small">查看成员信息</el-button>
+                <el-button slot="reference"
+                           size="small">查看成员信息
+                </el-button>
               </el-popover>
             </el-descriptions-item>
 
@@ -114,18 +121,24 @@
                 <i class="el-icon-s-release">
                 </i>证明材料
               </div>
-              <el-popover placement="right"  trigger="hover">
-                <el-image slot="reference" :src="project_commit.material" :alt="project_commit.material" style="width: 100px; height: 100px"></el-image>
+              <el-popover placement="right"
+                          trigger="hover">
+                <el-image slot="reference"
+                          :alt="project_commit.material"
+                          :src="project_commit.material"
+                          style="width: 100px; height: 100px"></el-image>
                 <el-image :src="project_commit.material"></el-image>
               </el-popover>
             </el-descriptions-item>
           </el-descriptions>
         </el-tab-pane>
 
-        <el-tab-pane label="班级审核" v-if="activeIndex >= 2" id="class_examine">
-          <el-descriptions class="margin-top"
-                           :column="3"
-                           border>
+        <el-tab-pane v-if="activeIndex >= 2"
+                     id="class_examine"
+                     label="班级审核">
+          <el-descriptions :column="3"
+                           border
+                           class="margin-top">
             <el-descriptions-item>
               <div slot="label">
                 <i class="el-icon-user">
@@ -177,10 +190,12 @@
           </el-descriptions>
         </el-tab-pane>
 
-        <el-tab-pane label="年级审核" v-if="activeIndex >= 3" id="grade_examine">
-          <el-descriptions class="margin-top"
-                           :column="3"
-                           border>
+        <el-tab-pane v-if="activeIndex >= 3"
+                     id="grade_examine"
+                     label="年级审核">
+          <el-descriptions :column="3"
+                           border
+                           class="margin-top">
             <el-descriptions-item>
               <div slot="label">
                 <i class="el-icon-user">
@@ -231,10 +246,12 @@
           </el-descriptions>
         </el-tab-pane>
 
-        <el-tab-pane label="院级审核" v-if="activeIndex >= 4" id="college_examine">
-          <el-descriptions class="margin-top"
-                           :column="3"
-                           border>
+        <el-tab-pane v-if="activeIndex >= 4"
+                     id="college_examine"
+                     label="院级审核">
+          <el-descriptions :column="3"
+                           border
+                           class="margin-top">
             <el-descriptions-item>
               <div slot="label">
                 <i class="el-icon-user">
@@ -366,8 +383,7 @@ export default {
   },
   methods: {
     init() {
-      //返回空白值
-      this.project_commit.upload_user = '';
+
 
     },
 

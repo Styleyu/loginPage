@@ -1,20 +1,26 @@
 <template>
-  <div class="el-card__body" name="examineviwe">
+  <div class="el-card__body"
+       name="examinees">
     <!--    欢迎语-->
     <div class="top">
-      <el-select v-model="grade" clearable placeholder="请选择年份">
+      <el-select v-model="grade"
+                 clearable
+                 placeholder="请选择年份">
         <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
         >
         </el-option>
       </el-select>
 
       <div class="search">
-        <el-input v-model="search" placeholder="请输入关键字搜索"> </el-input>
-        <el-button type="success" style="display: inline">搜索</el-button>
+        <el-input v-model="search"
+                  placeholder="请输入关键字搜索"></el-input>
+        <el-button style="display: inline"
+                   type="success">搜索
+        </el-button>
       </div>
 
       <div id="welcome_message">
@@ -37,119 +43,131 @@
     <!--    审核项目主题表格-->
     <div id="examineProjects">
       <el-table
-        id="examineTable"
-        :data="tableData"
-        style="width: 100%"
-        :row-class-name="tableRowClassName"
-        @selection-change="handleSelectionChange"
-        border
-        highlight-current-row
+          id="examineTable"
+          :data="tableData"
+          :row-class-name="tableRowClassName"
+          border
+          highlight-current-row
+          style="width: 100%"
+          @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="50"> </el-table-column>
+        <el-table-column type="selection"
+                         width="50"></el-table-column>
 
-        <el-table-column label="序号" type="index" width="50">
+        <el-table-column label="序号"
+                         type="index"
+                         width="50">
         </el-table-column>
 
-        <el-table-column prop="project_name" label="项目名称" width="130">
-          <v-slot slot-scope="scope">
+        <el-table-column label="项目名称"
+                         prop="project_name"
+                         width="130">
+          <template v-slot:default="scope">
             {{ scope.row.project_name }}
-          </v-slot>
+          </template>
         </el-table-column>
 
-        <el-table-column prop="group" label="所属团队" width="130">
-          <v-slot slot-scope="scope">
+        <el-table-column label="所属团队"
+                         prop="group"
+                         width="130">
+          <template v-slot:default="scope">
             {{ scope.row.group }}
-          </v-slot>
+          </template>
         </el-table-column>
 
-        <el-table-column prop="time" label="提交时间">
-          <v-slot slot-scope="scope">
+        <el-table-column label="提交时间"
+                         prop="time">
+          <template v-slot:default="scope">
             {{ scope.row.time }}
-          </v-slot>
+          </template>
         </el-table-column>
 
-        <el-table-column prop="material" label="证明材料">
-          <!--          <v-slot slot-scope="scope">-->
+        <el-table-column label="证明材料"
+                         prop="material">
+          <!--          <template v-slot:default="scope">-->
           <!--            <el-popover placement="right" :title="scope.row.material" trigger="hover" width="250">-->
           <!--              <el-image slot="reference" :src="scope.row.material" :alt="scope.row.material"></el-image>-->
           <!--              <el-image :src="scope.row.material"></el-image>-->
           <!--            </el-popover>-->
-          <!--          </v-slot>-->
-          <v-slot slot-scope="scope">
-            <el-popover placement="right" trigger="hover">
+          <!--          </template>-->
+          <template v-slot:default="scope">
+            <el-popover placement="right"
+                        trigger="hover">
               <el-image
-                slot="reference"
-                :src="scope.row.material"
-                fit="contain"
-                :alt="scope.row.material"
-                style="width: 100px; height: 100px"
+                  slot="reference"
+                  :alt="scope.row.material"
+                  :src="scope.row.material"
+                  fit="contain"
+                  style="width: 100px; height: 100px"
               ></el-image>
               <el-image :src="scope.row.material"></el-image>
             </el-popover>
-          </v-slot>
+          </template>
         </el-table-column>
 
         <!--        此处是给领导看的所以只有待审核和已审核两种状态-->
         <!--        已审核状态自动排序到后面或者根据设置直接不显示-->
-        <el-table-column prop="status" label="审核状态">
-          <v-slot slot-scope="scope">
+        <el-table-column label="审核状态"
+                         prop="status">
+          <template v-slot:default="scope">
             {{ scope.row.status === "1" ? "待审核" : "已审核" }}
-          </v-slot>
+          </template>
         </el-table-column>
 
-        <el-table-column prop="operate" label="操作" width="300">
-          <v-slot slot-scope="scope">
-            <el-button
+        <el-table-column label="操作"
+                         prop="operate"
+                         width="300">
+          <el-button
               class="fancy-btn"
+              round
+              size="small"
               type="success"
+          >
+            通过
+          </el-button>
+          <el-button
+              class="fancy-btn"
               round
               size="small"
-              @click="getDetails(scope.row.audit_id)"
-            >
-              通过
-            </el-button>
-            <el-button
-              class="fancy-btn"
               type="danger"
-              round
-              size="small"
-              @click="getDetails(scope.row.audit_id)"
-            >
-              退回
-            </el-button>
-            <el-button
+          >
+            退回
+          </el-button>
+          <el-button
               class="fancy-btn"
-              type="primary"
               round
               size="small"
-              @click="getDetails(scope.row.audit_id)"
-            >
-              详情
-            </el-button>
-          </v-slot>
+              type="primary"
+          >
+            详情
+          </el-button>
+
         </el-table-column>
       </el-table>
     </div>
     <!--    抄的别人的翻页(划去)-->
     <div class="page-block">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 20, 30]"
-        :page-size="100"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-        background
+          :current-page="currentPage"
+          :page-size="100"
+          :page-sizes="[5, 10, 20, 30]"
+          :total="total"
+          background
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
       >
       </el-pagination>
     </div>
     <!--  获取多选的选中项整列信息-->
     <!--    在控制台里面看-->
     <div style="margin-top: 20px">
-      <el-button @click="btnGetSelection()">获取选中项整列信息</el-button>
-      <el-button @click="btnGetSelection()">全部通过</el-button>
-      <el-button @click="btnGetSelection()">全部打回</el-button>
+
+        <el-button>全部通过</el-button>
+        <el-button>全部打回</el-button>
+
+
+
     </div>
   </div>
 </template>
@@ -159,9 +177,7 @@ export default {
     this.init();
   },
   methods: {
-    tableRowClassName({ row, rowIndex }) {
-      console.log(row.status === "1");
-      console.log(rowIndex);
+    tableRowClassName({row}) {
       // 未审核列和已审核列判断
       if (row.status === "1") {
         return "success-row";
@@ -172,19 +188,13 @@ export default {
     handleSelectionChange(selection) {
       console.log(selection);
     },
-    getDetails(audit_id) {
-      this.flag = audit_id;
-    },
     handleSizeChange(val) {
       this.pageSize = val;
     },
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-    btnGetSelection() {
-      let selection = this.$refs.multipleTable.selection;
-      console.log(selection);
-    },
+
     init() {
       // this.tableRowClassName(1, 3);
       this.teacher_name = "蔡";
@@ -216,9 +226,8 @@ export default {
           group: "218317134553",
           time: "2023-03-01 09:28:13",
           status: "1",
-
           material:
-            "https://th.bing.com/th/id/OIP.yXXeKFi8SkZxv8c06xI7NgHaFL?pid=ImgDet&rs=1",
+              "https://th.bing.com/th/id/OIP.yXXeKFi8SkZxv8c06xI7NgHaFL?pid=ImgDet&rs=1",
         },
         {
           project_name: "2",
@@ -226,7 +235,7 @@ export default {
           time: "2023-03-01 09:28:13",
           status: "1",
           material:
-            "https://c.cidianwang.com/file/shufa/kaishu/zhaomengfu/2016110141816874.gif",
+              "https://c.cidianwang.com/file/shufa/kaishu/zhaomengfu/2016110141816874.gif",
         },
         {
           project_name: "3",
@@ -234,7 +243,7 @@ export default {
           time: "2023-03-01 09:28:13",
           status: "0",
           material:
-            "https://c.cidianwang.com/file/shufa/kaishu/zhaomengfu/2016110141841558.gif",
+              "https://c.cidianwang.com/file/shufa/kaishu/zhaomengfu/2016110141841558.gif",
         },
         {
           project_name: "4",
@@ -242,7 +251,7 @@ export default {
           time: "2023-03-01 09:28:13",
           status: "0",
           material:
-            "https://th.bing.com/th/id/R.fbbe7b7d79f840c05b77003c13e5e6c3?rik=Lr38Kf%2fdX0o8Qg&riu=http%3a%2f%2fwww.cidianwang.com%2ffile%2fshufa%2fxingshu%2f2014110812444774.jpg&ehk=pepmaWvBmV0CNt1%2fgPR3ruuSpjnqPzMO%2fv0sGYkpUHs%3d&risl=&pid=ImgRaw&r=0",
+              "https://th.bing.com/th/id/R.fbbe7b7d79f840c05b77003c13e5e6c3?rik=Lr38Kf%2fdX0o8Qg&riu=http%3a%2f%2fwww.cidianwang.com%2ffile%2fshufa%2fxingshu%2f2014110812444774.jpg&ehk=pepmaWvBmV0CNt1%2fgPR3ruuSpjnqPzMO%2fv0sGYkpUHs%3d&risl=&pid=ImgRaw&r=0",
         },
         {
           project_name: "5",
@@ -250,7 +259,7 @@ export default {
           time: "2023-03-01 09:28:13",
           status: "0",
           material:
-            "https://th.bing.com/th/id/OIP.6sqhD5yA7FTHyDkyiShAhwAAAA?pid=ImgDet&rs=1",
+              "https://th.bing.com/th/id/OIP.6sqhD5yA7FTHyDkyiShAhwAAAA?pid=ImgDet&rs=1",
         },
       ],
     };
@@ -258,7 +267,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"
+       scoped>
 .page-block {
   width: 100%;
   display: inline-block;
@@ -281,6 +291,7 @@ export default {
   flex-direction: row;
   margin: 1rem;
   justify-content: space-between;
+
   .search {
     display: flex;
     flex-direction: row;
