@@ -18,7 +18,7 @@ export default {
     },
     {
       path: 'manage',
-      component: () => import('_back/views/user/UserManage.vue'),
+      component: () => import('@/services/back/views/user/UserManageView.vue'),
       menuName: '用户管理'
     }
   ]
