@@ -4,23 +4,24 @@
       <div class="big-box" :class="{active:isLogin}">
         <div class="big-contain" key="bigContainLogin" v-if="isLogin">
           <div class="sub-title">账户登录</div>
-          <div class="login-register-from">
+          <div class="login-register-form">
             <input type="email" placeholder="邮箱" v-model="form.userEmail">
             <span class="errTips" v-if="emailError">* 邮箱填写错误 *</span>
             <input type="password" placeholder="密码" v-model="form.userPwd">
             <span class="errTips" v-if="passwordError">* 密码填写错误 *</span>
-            <input type="text" placeholder="验证码" v-model="form.coach">
-            <span class="errTips" v-if="coachError">* 验证码填写错误 *</span>
+            <input type="text" placeholder="验证码 " v-model="form.coach">
+            <span class="errTips" v-if="coachError">* 验证码写错误 *</span>
           </div>
           <button class="commit-button" @click="login">登录</button>
         </div>
-        <div class="big-contain" key="bigContainRegister" v-else>
+
+        <div class="big-contain" key="bingContainLogin" v-else>
           <div class="sub-title">创建账户</div>
-          <div class="login-register-from">
-            <input type="text" placeholder="用户名" v-model="form.username">
-            <span class="errTips" v-if="existed">* 用户名已经存在！ *</span>
+          <div class="login-register-form">
+            <input type="text" placeholder="用户名" v-model="form.username" >
+            <span class="errTips" v-if="existed">*用户名已经存在！*</span>
             <input type="email" placeholder="邮箱" v-model="form.userEmail">
-            <input type="password" placeholder="密码" v-model="form.userPwd">
+            <input type="password" placeholder="密码" v-model="form.userPwd" >
           </div>
           <button class="commit-button" @click="register">注册</button>
         </div>
@@ -47,13 +48,13 @@ import {goToBackPage} from "@/api/jump";
 export default{
   // eslint-disable-next-line vue/multi-word-component-names
   name:'Login',
-  data(){
+  data() {
     return {
       isLogin:false,
-      emailError: false,
-      passwordError: false,
-      coachError: false,
-      existed: false,
+      emailError:false,
+      passwordError:false,
+      coachError:false,
+      existed:false,
       form:{
         username:'',
         userEmail:'',
@@ -63,78 +64,75 @@ export default{
     }
   },
   methods:{
-    changeType() {
+    changeType(){
       this.isLogin = !this.isLogin
       this.form.username = ''
       this.form.userEmail = ''
       this.form.userPwd = ''
       this.form.coach = ''
     },
-    login() {
+    login(){
       const self = this;
-      if (self.form.userEmail !== "" && self.form.userPwd !== "") {
-        //预留的登录接口
-        // self.$axios({
+      if(self.form.userEmail !== "" && self.form.userPwd !== ""){
+        // 预留的登录接口
+        // self.axios({
         //   method:'post',
-        //   url: 'http://127.0.0.1:10520/api/user/login',
-        //   data: {
-        //     email: self.form.userEmail,
-        //     password: self.form.userPwd,
-        //     coach: self.form.coach
+        //   url:'http://127.0.0.1:10520/api/user/login',
+        //   data:{
+        //     email:self.form.userEmail,
+        //     password:self.form.userPwd,
+        //     coach:self.form.coach
         //   }
+        // }).then(res=>{
+        //   switch(res.data){
+        //     case 0:
+        //       alert("登录成功！");
+        //       break;
+        //     case -1:
+        //       this.emailError = true;
+        //       break;
+        //     case 1:
+        //       this.passwordError = true;
+        //       break;
+        //     case 2:
+        //       this.coachError = true;
+        //       break;
+        //   }
+        // }).catch(err =>{
+        //    console.log(err);
         // })
-        //     .then( res => {
-        //       switch(res.data){
-        //         case 0:
-        //           alert("登陆成功！");
-        //           break;
-        //         case -1:
-        //           this.emailError = true;
-        //           break;
-        //         case 1:
-        //           this.passwordError = true;
-        //           break;
-        //         case 2:
-        //           this.coachError=true;
-        //           break;
-        //       }
-        //     })
-        //     .catch( err => {
-        //       console.log(err);
-        //     })
+
         goToBackPage()
-      } else{
-        alert("填写不能为空！");
+      }else{
+        alert('填写不能为空！')
       }
     },
     register(){
       const self = this;
-      if(self.form.username !== "" && self.form.userEmail !== "" && self.form.userPwd !== ""){
-        self.$axios({
+      if(self.form.username !=="" &&self.form.userEmail !== "" && self.form.userPwd !== ""){
+        self.axios({
           method:'post',
-          url: 'http://127.0.0.1:10520/api/user/add',
-          data: {
-            username: self.form.username,
-            email: self.form.userEmail,
-            password: self.form.userPwd
+          url:'http://127.0.0.1:10520/api/user/login',
+          data:{
+            email:self.form.userEmail,
+            password:self.form.userPwd,
+            coach:self.form.coach
           }
+        }).then(res=>{
+          switch(res.data){
+            case 0:
+              alert("注册成功！");
+              break;
+            case -1:
+              this.existed = true;
+              break;
+          }
+        }).catch( err=>{
+           console.log(err)
         })
-            .then( res => {
-              switch(res.data){
-                case 0:
-                  alert("注册成功！");
-                  this.login();
-                  break;
-                case -1:
-                  this.existed = true;
-                  break;
-              }
-            })
-            .catch( err => {
-              console.log(err);
-            })
-      } else {
-        alert("填写不能为空！");
+
+      }else{
+        alert('填空不能为空！')
       }
     }
   }
@@ -184,7 +182,7 @@ export default{
   font-weight: bold;
   color: rgba(0, 0, 0, 0.70);
 }
-.login-register-from{
+.login-register-form{
   width: 100%;
   height: 40%;
   padding: 2em 0;
@@ -193,7 +191,7 @@ export default{
   justify-content: space-around;
   align-items: center;
 }
-.login-register-from .errTips{
+.login-register-form .errTips{
   display: block;
   width: 50%;
   text-align: left;
@@ -201,7 +199,7 @@ export default{
   font-size: 0.7em;
   margin-left: 1em;
 }
-.login-register-from input{
+.login-register-form input{
   width: 50%;
   height: 2.5rem;
   border: none;
@@ -211,7 +209,7 @@ export default{
   background-color: rgba(133, 129, 129, 0.5);
 }
 .commit-button{
-  width: 20%;
+  /* width: 20%;
   height: 3rem;
   border-radius: 2.3rem;
   border: none;
@@ -219,7 +217,18 @@ export default{
   background-color: rgb(57, 134, 176, 0.7);
   color: #fff;
   font-size: 0.9em;
+  cursor: pointer; */
+
+  border: 0px;
+  outline: none;
+  width: 55%;
+  height: 40px;
+  line-height: 40px;
+  background: #46A0E8;
+  font-size: 18px;
+  color: #fff;
   cursor: pointer;
+
 }
 .small-box{
   width: 30%;
