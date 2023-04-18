@@ -1,5 +1,5 @@
 <template>
-  <div class="login-register">
+  <div class="login-register">   
     <div class="contain">
       <div class="big-box" :class="{active:isLogin}">
         <div class="big-contain" key="bigContainLogin" v-if="isLogin">
@@ -13,6 +13,24 @@
             <span class="errTips" v-if="coachError">* 验证码写错误 *</span>
           </div>
           <button class="commit-button" @click="login">登录</button>
+          <div class="orBox">
+            <div class="qq">
+              <p>
+                <a href="">
+                  <img src="../../assets/qq.png" alt="">
+                  <span>&nbsp;QQ登录</span>
+                </a>
+              </p>
+            </div>
+            <div class="wx">
+              <p>
+                <a href="">
+                  <img src="../../assets/weixin.png" alt="">
+                  <span>&nbsp;微信登录</span>
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
 
         <div class="big-contain" key="bingContainLogin" v-else>
@@ -24,6 +42,24 @@
             <input type="password" placeholder="密码" v-model="form.userPwd" >
           </div>
           <button class="commit-button" @click="register">注册</button>
+          <div class="orBox">
+            <div class="qq">
+              <p>
+                <a href="">
+                  <img src="../../assets/qq.png" alt="">
+                  <span>&nbsp;QQ登录</span>
+                </a>
+              </p>
+            </div>
+            <div class="wx">
+              <p>
+                <a href="">
+                  <img src="../../assets/weixin.png" alt="">
+                  <span>&nbsp;微信登录</span>
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="small-box" :class="{active:isLogin}">
@@ -140,6 +176,15 @@ export default{
 </script>
 
 <style scoped>
+
+
+img {
+    border: 0;
+    /*为了照顾部分浏览器图片外面包含链接会有边框的问题*/
+    vertical-align: middle
+        /*防止图片底侧有空白缝隙*/
+}
+
 .login-register{
   width: 100vw;
   height: 100vh;
@@ -149,7 +194,7 @@ export default{
 }
 .contain{
   width: 60%;
-  height: 60%;
+  height: 70%;
   position: relative;
   top: 50%;
   left: 50%;
@@ -294,4 +339,22 @@ export default{
 input{
   height: 5vh;
 }
+
+.orBox{
+  width: 55%;
+  display: flex;
+  justify-content:space-around;
+  margin-top: 10px;
+}
+
+.orBox p{
+  text-align: center;
+  color: #333;
+  font-size: 13px;
+}
+.orBox a {
+    color: #666;
+    text-decoration: none
+}
+
 </style>

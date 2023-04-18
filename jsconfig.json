@@ -21,5 +21,6 @@
     "extensions": [
       ".vue"
     ]
-  }
+  },
+  // "jsx": "preserve",
 }

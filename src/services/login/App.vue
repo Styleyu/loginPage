@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header></Header>
     <Login />
   </div>
 </template>
@@ -7,12 +8,13 @@
 <script>
 import { api } from '@/api/axios'
 import Login from "_login/Login";
+import  Header  from "./Header.vue"
 
 // import { goToBackPage } from '@/api/go'
 
 export default {
   name: 'ROOT',
-  components: {Login},
+  components: {Login,Header},
   data() {
     return {
 
